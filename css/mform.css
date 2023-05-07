@@ -1,0 +1,17 @@
+main {
+    grid-template-columns: auto;
+    place-content: center;
+    place-items: unset;
+    gap: 32px;
+}
+
+.admin p {
+    font-weight: 500;
+    margin-bottom: -12px;
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        flex-direction: column;
+    }
+}

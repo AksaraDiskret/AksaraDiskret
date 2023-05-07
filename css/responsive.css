@@ -1,0 +1,127 @@
+:root {
+    --spacing: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    input {
+        font-size: 14px;
+    }
+
+    header {
+        padding: var(--spacing) 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 24px;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        min-width: 50%;
+        min-height: 100vh;
+        padding: 16px 0;
+        transition: 400ms ease-in;
+        background-color: rgba(0, 0, 0, 0.54);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    #menu-icon {
+        display: block;
+    }
+
+    .show-menu {
+        right: 0;
+        transition: 350ms ease;
+    }
+
+    .app-container {
+        padding: var(--spacing) 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .primary-content p,
+    h2 {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    nav ul {
+        gap: 64px;
+    }
+
+    header {
+        padding: var(--spacing) 32px;
+    }
+
+    .app-container {
+        padding: var(--spacing) 32px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    nav ul {
+        gap: 96px;
+    }
+
+    header {
+        padding: var(--spacing) 64px;
+    }
+
+    .app-container {
+        padding: var(--spacing) 64px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .primary-content p {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    nav ul {
+        gap: 128px;
+    }
+
+    header {
+        padding: var(--spacing) 128px;
+    }
+
+    .app-container {
+        padding: var(--spacing) 128px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    nav ul {
+        gap: 186px;
+    }
+
+    header {
+        padding: var(--spacing) 160px;
+    }
+
+    .app-container {
+        padding: var(--spacing) 160px;
+    }
+
+    h1 {
+        font-size: 48px;
+    }
+}
