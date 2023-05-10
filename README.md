@@ -1,2 +1,14 @@
-# AksaraDiskret
-Project Web kelompok A4 🔥
+# Group Web Project A4 🚧
+![Aksara Diskret White Logo](https://raw.githubusercontent.com/sariaRiski02/AksaraDiskret/main/assets/icon/ad-logo.svg)
+
+Welcome to the official **AD** documentation. This documentation contains everything that is in this project, if something is missing, please [contact us](https://github.com/sariaRiski02/AksaraDiskret/graphs/contributors) or [open new issue](https://github.com/sariaRiski02/AksaraDiskret/issues).
+
+## Admin Access 🔐
+
+To use admin access rights, please use the account provided below :
+
+Email Address|Password
+-|-
+```adminprivilege@mail.com```|```admin1$4dm1n```
+
+Thank you for visiting. Greetings from the AD team. 😁
