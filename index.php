@@ -19,7 +19,7 @@
 
 <body>
     <header>
-        <a href="/"><img src="assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
+        <a href="."><img src="assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
                 <li><a href="faq">FAQ</a></li>
