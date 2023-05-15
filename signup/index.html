@@ -37,16 +37,17 @@
     <div class="app-container">
         <main>
             <h1>Sign Up to make account</h1>
-            <form>
-                <input type="text" id="first-name" class="rounded-box" placeholder="First Name">
-                <input type="text" id="last-name" class="rounded-box" placeholder="Last Name">
-                <input type="email" id="email" class="rounded-box" placeholder="Email Address">
-                <input type="password" id="password" class="rounded-box password" placeholder="Password">
+            <form action="" method="post">
+                <input type="text" id="first-name"  name="first-name" class="rounded-box" placeholder="First Name">
+                <input type="text" id="last-name" name="last-name" class="rounded-box" placeholder="Last Name">
+                <input type="email" id="email" name="email" class="rounded-box" placeholder="Email Address">
+                <input type="password" id="password" name="password" class="rounded-box password" placeholder="Password">
+                <input type="password" id="password2" name="config_password" class="rounded-box password" placeholder="Configuration Password">
                 <div class="check-box">
                     <input type="checkbox" id="show-password" onclick="showPassword()">
                     <label for="show-password">Show Password</label>
                 </div>
-                <button type="button" class="rounded-box primary-btn" id="data-btn" onclick="LoadData()">Sign
+                <button type="submit" class="rounded-box primary-btn" id="data-btn" name="signup" onclick="LoadData()">Sign
                     Up</button>
                 <span class="failed"></span>
                 <p>Already have an Account? <a href="../signin/index.html" class="link">Sign In</a></p>
