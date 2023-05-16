@@ -11,19 +11,35 @@ function closeMenu() {
     close.removeAttribute("style");
 }
 
-function showPassword() {
-    const password = document.getElementById("show-password");
-    const show = document.getElementsByClassName("password");
+const elements = [
+  { s: "s-default-pass", h: "h-default-pass", show: ".default-password" },
+  { s: "s-old-pass", h: "h-old-pass", show: ".old-password" },
+  { s: "s-new-pass", h: "h-new-pass", show: ".new-password" }
+];
 
-    if (password.checked) {
-        for (var i = 0; i < show.length; i++) {
-            show[i].setAttribute("type", "text");
-        }
-    } else {
-        for (var i = 0; i < show.length; i++) {
-            show[i].setAttribute("type", "password");
-        }
-    }
+elements.forEach(({ s, h, show }) => {
+  const spassword = document.getElementById(s);
+  const hpassword = document.getElementById(h);
+  const showElement = document.querySelector(show);
+
+  if (spassword && hpassword && showElement) {
+    spassword.addEventListener("click", () => showPassword(spassword, hpassword, showElement));
+    hpassword.addEventListener("click", () => hidePassword(spassword, hpassword, showElement));
+  }
+});
+
+function showPassword(spassword, hpassword, show) {
+  spassword.style.opacity = 0;
+  hpassword.style.opacity = 1;
+  hpassword.style.zIndex = 1;
+  show.setAttribute("type", "text");
+}
+
+function hidePassword(spassword, hpassword, show) {
+  spassword.style.opacity = 1;
+  hpassword.style.opacity = 0;
+  hpassword.style.zIndex = -1;
+  show.setAttribute("type", "password");
 }
 
 function actionConfirm() {

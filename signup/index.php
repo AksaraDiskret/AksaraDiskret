@@ -40,8 +40,8 @@
             <form>
                 <input type="text" id="first-name" class="rounded-box" placeholder="First Name">
                 <input type="text" id="last-name" class="rounded-box" placeholder="Last Name">
-                <input type="email" id="email" class="rounded-box" placeholder="Email Address">
-                <input type="password" id="password" class="rounded-box password" placeholder="Password">
+                <input type="email" name="email" class="rounded-box" placeholder="Email Address">
+                <input type="password" name="password" class="rounded-box password" placeholder="Password">
                 <div class="check-box">
                     <input type="checkbox" id="show-password" onclick="showPassword()">
                     <label for="show-password">Show Password</label>

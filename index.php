@@ -1,3 +1,20 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["signin"])) {
+    $user_link = "signout";
+    $user_status = "Sign Out";
+    $user_link_primary = "collection";
+    $user_link_status = "Books Collection";
+} else {
+    $user_link = "signin";
+    $user_status = "Sign In";
+    $user_link_primary = "signup";
+    $user_link_status = "Get Started";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +28,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -24,7 +40,7 @@
             <ul id="nav-list">
                 <li><a href="faq">FAQ</a></li>
                 <li><a href="about">About</a></li>
-                <li><a href="signin" class="rounded-box btn nav-btn">Sign In</a></li>
+                <li><a href="<?= $user_link ?>" class="rounded-box btn nav-btn"><?= $user_status ?></a></li>
                 <li id="close-icon" onclick="closeMenu()">
                     <img src="assets/icon/remixicon-close-line.svg" alt="Close Icon">
                 </li>
@@ -37,10 +53,9 @@
             <div class="primary-content">
                 <h1>Discover Our Extensive Collection of Books</h1>
                 <p>Find your next favorite book in our collections.</p>
-                <a href="signup" class="rounded-box btn primary-btn get-start">Get Started</a>
+                <a href="<?= $user_link_primary ?>" class="rounded-box btn primary-btn get-start"><?= $user_link_status ?></a>
             </div>
-            <img src="assets/image/sketchvalley-learningexpress.png"
-                alt="a magnifying glass highlights a globe and some books" class="main-img">
+            <img src="assets/image/sketchvalley-learningexpress.png" alt="a magnifying glass highlights a globe and some books" class="main-img">
         </main>
         <footer>
             <p>Copyright ©️ 2023 <b>Aksara Diskret</b>.</p>

@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["signin"])) {
+    header("Location: ../signin");
+    exit;
+}
+
+require '../config/functions.php';
+$result = mysqli_query($db, "SELECT id FROM signin WHERE
+    id = 1");
+$row = mysqli_fetch_assoc($result);
+
+if (!$row['id']) {
+    header("Location: ../collection");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +29,7 @@
     <link rel="stylesheet" href="../css/mform.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -56,8 +72,7 @@
                     <label for="action-confirm">I am fully responsible for the book that I upload from any unwanted
                         things that might happen later.</label>
                 </div>
-                <button type="button" id="action-btn" class="rounded-box primary-btn" onclick="confirmAction()"
-                    disabled>Confirm Action</button>
+                <button type="button" id="action-btn" class="rounded-box primary-btn" onclick="confirmAction()" disabled>Confirm Action</button>
                 <span class="success">Book uploaded / Book edited.</span>
                 <hr>
                 <h2>Delete a book</h2>
@@ -66,8 +81,7 @@
                     <input type="checkbox" id="delete-confirm" onclick="deleteConfirm()">
                     <label for="delete-confirm">Confirm to delete the book.</label>
                 </div>
-                <button type="button" id="delete-btn" class="rounded-box primary-btn" onclick="deleteBook()"
-                    disabled>Delete Book</button>
+                <button type="button" id="delete-btn" class="rounded-box primary-btn" onclick="deleteBook()" disabled>Delete Book</button>
                 <span class="success">Book deleted.</span>
                 <hr>
             </form>
