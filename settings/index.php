@@ -1,3 +1,18 @@
+<?php
+session_start();
+require "../functions/functions.php";
+
+if (isset($_POST["ganti_email"]) || isset($_POST["ganti_password"])) {
+    $iduser = mysqli_query($db, "SELECT id FROM users");
+    $warning = Change($_POST);
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +28,7 @@
     <link rel="stylesheet" href="../css/settings.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -41,21 +55,22 @@
                 <a href="../collection/index.html"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
                 <h1>Settings your account</h1>
             </div>
-            <form>
+            <form action="" method="post">
                 <h2>Change your email</h2>
-                <input type="email" id="new-email" class="rounded-box" placeholder="New Email Address">
-                <button type="button" class="rounded-box primary-btn" onclick="newEmail()">Change
+
+                <input type="email" id="new-email" class="rounded-box" name="new_email" placeholder="New Email Address">
+                <button type="submit" name="ganti_email" class="rounded-box primary-btn">Change
                     Email</button>
                 <span class="success">Email Address changed.</span>
                 <hr>
                 <h2>Change your password</h2>
-                <input type="password" id="newpassword" class="rounded-box password" placeholder="New Password">
-                <input type="password" id="oldpassword" class="rounded-box password" placeholder="Old Password">
+                <input type="password" name="new_password" id="newpassword" class="rounded-box password" placeholder="New Password">
+                <input type="password" name="old_password" id="oldpassword" class="rounded-box password" placeholder="Old Password">
                 <div class="check-box">
                     <input type="checkbox" id="show-password" onclick="showPassword()">
                     <label for="show-password">Show Password</label>
                 </div>
-                <button type="button" class="rounded-box primary-btn" onclick="changePassword()">Change
+                <button type="submit" name="ganti_password" class="rounded-box primary-btn">Change
                     Password</button>
                 <span class="success">Password changed.</span>
                 <hr>

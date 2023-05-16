@@ -7,30 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aksara Diskret">
     <title>Aksara Diskret | Online Books Library</title>
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../Aksara-Diskret/css/global.css">
+    <link rel="stylesheet" href="../Aksara-Diskret/css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
 
 <body>
     <header>
-        <a href="/"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
+        <a href="../Aksara-Diskret/index.php"><img src="../Aksara-Diskret/assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <li><a href="../faq/index.html">FAQ</a></li>
-                <li><a href="../about/index.html">About</a></li>
-                <li><a href="../signin/index.html" class="rounded-box btn nav-btn">Sign In</a></li>
+                <li><a href="../Aksara-Diskret/faq/index.html">FAQ</a></li>
+                <li><a href="../Aksara-Diskret/about/index.html">About</a></li>
+                <li><a href="../Aksara-Diskret/signin/index.html" class="rounded-box btn nav-btn">Sign In</a></li>
                 <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
+                    <img src="../Aksara-Diskret/assets/icon/remixicon-close-line.svg" alt="Close Icon">
                 </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon"></div>
+        <div id="menu-icon" onclick="showMenu()"><img src="../Aksara-Diskret/assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon"></div>
     </header>
     <div class="app-container">
         <main>
@@ -39,8 +38,7 @@
                 <p>Find your next favorite book in our collections.</p>
                 <a href="../Aksara-Diskret/signup/index.php" class="rounded-box btn primary-btn get-start">Get Started</a>
             </div>
-            <img src="../assets/image/sketchvalley-learningexpress.png"
-                alt="a magnifying glass highlights a globe and some books" class="main-img">
+            <img src="../Aksara-Diskret/assets/image/sketchvalley-learningexpress.png" alt="a magnifying glass highlights a globe and some books" class="main-img">
         </main>
         <footer>
             <p>Copyright ©️ 2023 <b>Aksara Diskret</b>.</p>

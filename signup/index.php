@@ -3,7 +3,7 @@
 require "../functions/functions.php";
 
 if (isset($_POST["submit"])) {
-    $Warning = tambah($_POST);
+    $Warning = addUser($_POST);
 }
 
 
