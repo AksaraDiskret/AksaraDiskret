@@ -10,6 +10,30 @@ main {
     margin-bottom: -12px;
 }
 
+.pass-box {
+    position: relative;
+    display: flex;
+}
+
+.pass-box input {
+    width: 100%;
+    padding-right: 56px;
+}
+
+.pass-box img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 16px;
+    margin: auto;
+}
+
+#h-default-pass,
+#h-old-pass,
+#h-new-pass {
+    opacity: 0;
+}
+
 @media only screen and (max-width: 600px) {
     main {
         flex-direction: column;

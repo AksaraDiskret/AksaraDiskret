@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION["signin"])) {
+    header("Location: ../signin");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +23,7 @@
     <link rel="stylesheet" href="../css/settings.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -49,11 +58,15 @@
                 <span class="success">Email Address changed.</span>
                 <hr>
                 <h2>Change your password</h2>
-                <input type="password" id="newpassword" class="rounded-box password" placeholder="New Password">
-                <input type="password" id="oldpassword" class="rounded-box password" placeholder="Old Password">
-                <div class="check-box">
-                    <input type="checkbox" id="show-password" onclick="showPassword()">
-                    <label for="show-password">Show Password</label>
+                <div class="pass-box">
+                    <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password" required>
+                    <img id="h-old-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
+                    <img id="s-old-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
+                </div>
+                <div class="pass-box">
+                    <input type="password" name="new-password" class="rounded-box new-password" placeholder="New Password" required>
+                    <img id="h-new-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
+                    <img id="s-new-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <button type="button" class="rounded-box primary-btn" onclick="changePassword()">Change
                     Password</button>
