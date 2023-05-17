@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="../css/mform.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -41,10 +40,10 @@
                 <input type="text" id="first-name" class="rounded-box" placeholder="First Name">
                 <input type="text" id="last-name" class="rounded-box" placeholder="Last Name">
                 <input type="email" name="email" class="rounded-box" placeholder="Email Address">
-                <input type="password" name="password" class="rounded-box password" placeholder="Password">
-                <div class="check-box">
-                    <input type="checkbox" id="show-password" onclick="showPassword()">
-                    <label for="show-password">Show Password</label>
+                <div class="pass-box">
+                    <input type="password" name="password" class="rounded-box default-password" placeholder="Password" required>
+                    <img id="h-default-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
+                    <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <button type="button" class="rounded-box primary-btn" id="data-btn" onclick="LoadData()">Sign
                     Up</button>
