@@ -2,9 +2,11 @@
 session_start();
 require "../functions/functions.php";
 
-if (isset($_POST["ganti_email"]) || isset($_POST["ganti_password"])) {
-    $iduser = mysqli_query($db, "SELECT id FROM users");
-    $warning = Change($_POST);
+if (isset($_POST["ganti_email"])) {
+    // $warning1 = ChangeEmail($_POST);
+}
+
+if (isset($_POST["ganti_password"])) {
 }
 
 
