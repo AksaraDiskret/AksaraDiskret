@@ -1,3 +1,14 @@
+<?php
+
+require "../config/functions.php";
+
+if (isset($_POST["submit"])) {
+    $Warning = addUser($_POST);
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +23,8 @@
     <link rel="stylesheet" href="../css/mform.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -37,18 +48,23 @@
     <div class="app-container">
         <main>
             <h1>Sign Up to make account</h1>
-            <form>
-                <input type="text" id="first-name" class="rounded-box" placeholder="First Name">
-                <input type="text" id="last-name" class="rounded-box" placeholder="Last Name">
-                <input type="email" name="email" class="rounded-box" placeholder="Email Address">
-                <input type="password" name="password" class="rounded-box password" placeholder="Password">
+            <form action="" method="post">
+                <input type="text" id="first-name" name="first_name" class="rounded-box" placeholder="First Name" required>
+                <input type="text" id="last-name" name="last_name" class="rounded-box" placeholder="Last Name" required>
+                <input type="email" id="email" name="email" class="rounded-box" placeholder="Email Address" required>
+                <input type="password" id="password" name="password" class="rounded-box password" placeholder="Password" required>
+                <input type="password" id="password2" name="config_password" class="rounded-box password" placeholder="Configuration Password" required>
                 <div class="check-box">
                     <input type="checkbox" id="show-password" onclick="showPassword()">
                     <label for="show-password">Show Password</label>
                 </div>
-                <button type="button" class="rounded-box primary-btn" id="data-btn" onclick="LoadData()">Sign
+                <button type="submit" class="rounded-box primary-btn" id="data-btn" name="submit">Sign
                     Up</button>
-                <span class="failed"></span>
+                <span class="failed">
+                    <?php if (isset($Warning)) {
+                        echo $Warning;
+                    } ?>
+                </span>
                 <p>Already have an Account? <a href="../signin" class="link">Sign In</a></p>
             </form>
         </main>

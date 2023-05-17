@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION["signin"])) {
@@ -7,7 +6,19 @@ if (!isset($_SESSION["signin"])) {
     exit;
 }
 
+require "../functions/functions.php";
+
+if (isset($_POST["ganti_email"])) {
+    // $warning1 = ChangeEmail($_POST);
+}
+
+if (isset($_POST["ganti_password"])) {
+}
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +58,7 @@ if (!isset($_SESSION["signin"])) {
     <div class="app-container">
         <main>
             <div class="setting">
+
                 <a href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
                 <h1>Settings your account</h1>
             </div>
@@ -54,10 +66,12 @@ if (!isset($_SESSION["signin"])) {
                 <h2>Change your email</h2>
                 <input type="email" id="new-email" class="rounded-box" placeholder="New Email Address">
                 <button type="button" class="rounded-box primary-btn" onclick="newEmail()">Change
+
                     Email</button>
                 <span class="success">Email Address changed.</span>
                 <hr>
                 <h2>Change your password</h2>
+
                 <div class="pass-box">
                     <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password" required>
                     <img id="h-old-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">

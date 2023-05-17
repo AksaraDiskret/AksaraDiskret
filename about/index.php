@@ -25,7 +25,9 @@ if (isset($_SESSION["signin"])) {
     <link rel="stylesheet" href="../css/text.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Caveat&display=swap" rel="stylesheet">
+
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -38,6 +40,7 @@ if (isset($_SESSION["signin"])) {
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li><a href="<?= $user_link ?>" class="rounded-box btn nav-btn"><?= $user_status ?></a></li>
+
                 <li id="close-icon" onclick="closeMenu()">
                     <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
                 </li>

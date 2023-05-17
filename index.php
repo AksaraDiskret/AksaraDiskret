@@ -31,6 +31,7 @@ if (isset($_SESSION["signin"])) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
+
 </head>
 
 <body>
@@ -47,6 +48,7 @@ if (isset($_SESSION["signin"])) {
             </ul>
         </nav>
         <div id="menu-icon" onclick="showMenu()"><img src="assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon"></div>
+
     </header>
     <div class="app-container">
         <main>
@@ -56,6 +58,7 @@ if (isset($_SESSION["signin"])) {
                 <a href="<?= $user_link_primary ?>" class="rounded-box btn primary-btn get-start"><?= $user_link_status ?></a>
             </div>
             <img src="assets/image/sketchvalley-learningexpress.png" alt="a magnifying glass highlights a globe and some books" class="main-img">
+
         </main>
         <footer>
             <p>Copyright ©️ 2023 <b>Aksara Diskret</b>.</p>

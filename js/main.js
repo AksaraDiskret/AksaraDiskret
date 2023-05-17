@@ -42,6 +42,8 @@ function hidePassword(spassword, hpassword, show) {
   show.setAttribute("type", "password");
 }
 
+
+
 function actionConfirm() {
     const actionConfirm = document.getElementById("action-confirm");
     const actionBtn = document.getElementById("action-btn");
