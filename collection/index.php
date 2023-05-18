@@ -2,10 +2,12 @@
 
 session_start();
 
-if (!isset($_SESSION["signin"])) {
+if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
     header("Location: ../signin");
     exit;
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +36,11 @@ if (!isset($_SESSION["signin"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <li><a href="../admin">Admin</a></li>
+                <li>
+                    <?php if (!isset($_SESSION["signinUser"])) : ?>
+                        <a href="../admin">Admin</a>
+                    <?php endif; ?>
+                </li>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li id="close-icon" onclick="closeMenu()">
@@ -51,7 +57,14 @@ if (!isset($_SESSION["signin"])) {
                 <div class="data">
                     <p>Welcome,</p>
                     <div class="account-menu">
-                        <span id="user">Doe Doe</span>
+                        <span id="user">
+                            <?php if (isset($_SESSION["userName"])) : ?>
+                                <?= $_SESSION["userName"] ?>
+                            <?php else : ?>
+                                Admin Aksara-Diskret
+                            <?php endif; ?>
+
+                        </span>
                         <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                     </div>
                 </div>

@@ -25,24 +25,7 @@ if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $pass = $_POST["password"];
 
-    $result = mysqli_query($db, "SELECT * FROM admin WHERE
-    email = '$email'");
-
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($pass, $row["password"])) {
-            $_SESSION["signin"] = true;
-
-            if (isset($_POST['remember-me'])) {
-                setcookie('signin', $row['id'], time() + 60, '/');
-                setcookie('secret', hash('sha512', $row['email']), time() + 60, '/');
-            }
-
-            header("Location: ../collection");
-            exit;
-        }
-    }
-    $wrong = true;
+    $wrong = Validation_signin($email, $pass);
 }
 
 ?>

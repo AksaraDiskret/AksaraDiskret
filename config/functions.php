@@ -5,7 +5,9 @@ function rowData($que)
 {
     $rows = [];
     while ($row = mysqli_fetch_assoc($que)) {
-        $rows[] = $row;
+        foreach ($row as $r) {
+            $rows[] = $r;
+        }
     }
     return $rows;
 }
@@ -30,16 +32,11 @@ function addUser($data)
     $last_name = htmlspecialchars($data["last_name"]);
     $email = htmlspecialchars($data["email"]);
     $password = htmlspecialchars($data["password"]);
-    $password2 = htmlspecialchars($data["config_password"]);
 
-    // mengecek konfigurasi password
-    if ($password !== $password2) {
-        return "<p style='color:red'>Password and confirmation do not match. Please try again.</p>";
-    }
 
-    //mengecek apakah $password kurang dari dari 8 char
-    if (strlen($password) < 8) {
-        return "Password must be at least 8 characters long.";
+    //mengecek apakah $password kurang dari dari 8 karakter
+    if (strlen("$password") < 8) {
+        return "<p style='color:red'>Password must be at least 8 characters long.</p>";
     }
     // enskirpsi passowrd
     $hashpassword =  password_hash($password, PASSWORD_DEFAULT);
@@ -53,37 +50,82 @@ function addUser($data)
     }
 }
 
+function Validation_signin($email, $pass)
+{
+    global $db;
+    $result = mysqli_query($db, "SELECT * FROM admin WHERE email = '$email'");
+    $result_users = mysqli_query($db, "SELECT * FROM users WHERE email='$email'");
+
+    if (mysqli_num_rows($result) >= 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($pass, $row["password"])) {
+            $_SESSION["signin"] = true;
+        } else {
+            return true;
+        }
+        if (isset($_POST['remember-me'])) {
+            setcookie('signin', $row['id'], time() + 60, '/');
+            setcookie('secret', hash('sha512', $row['email']), time() + 60, '/');
+        }
+        $_SESSION["idAdmin"] = $row["id"];
+        header("Location: ../collection");
+        exit;
+    }
+    if (mysqli_num_rows($result_users) >= 1) {
+        $row_users = rowData($result_users);
+        if (password_verify($pass, $row_users[4])) {
+            $_SESSION["signinUser"] = true;
+        } else {
+            return true;
+        }
+        if (isset($_POST['remember-me'])) {
+            setcookie('signin', $row_users[0], time() + 60, '/');
+            setcookie('secret', hash('sha512', $row_users[3]), time() + 60, '/');
+        }
+        $_SESSION["userName"] = "$row_users[1] $row_users[2]";
+        $_SESSION["idUser"] = $row_users[0];
+        header("Location: ../collection");
+        exit;
+    }
+
+    return true;
+}
 
 
+function ChangeEmail($data)
+{
+    global $db;
+    $new_email = htmlspecialchars($data["new_email"]);
+    $id = $_SESSION["idUser"];
 
-//     $query = "INSERT INTO users VALUES ('','$first_name','$last_name','$email','$hashpassword')";
-//     mysqli_query($db, $query);
-//     $id = mysqli_query($db, "SELECT id FROM users WHERE email = '$email'");
-//     $data_id = rowData($id)[0];
-//     $_SESSION["id"] = $data_id;
+    if (CheckingEmail($new_email)) {
+        return "<p style='color:red'>Email already registered. Choose another or log in.</p>";
+    }
 
-//    
-// }
+    mysqli_query($db, "UPDATE users SET email='$new_email' WHERE id = '$id'");
 
-// function ChangeEmail($data)
-// {
-//     global $db;
-//     $new_email = htmlspecialchars($data["new_email"]);
-//     $id = $_SESSION["id"];
+    if (mysqli_affected_rows($db) > 0) {
+        return "<p style='color:green'>Email Changed</p>";
+    }
+}
 
-//     if (CheckingEmail($new_email)) {
-//         return "<p style='color:red'>Email already registered. Choose another or log in.</p>";
-//     }
 
-//     $hasil = mysqli_query($db, "UPDATE users SET email=$new_email WHERE id = '$id'");
+function ChangePass($data)
+{
+    global $db;
+    $id = $_SESSION["idUser"];
+    $new_pass = $data["new-password"];
+    $old_pass = $data["old-password"];
 
-//     if (mysqli_affected_rows($db) > 0) {
-//         return "<p style='color:green'>Email Changed</p>";
-//     }
-// }
+    if (strlen($new_pass) < 8) {
 
-// function ChangePass($data)
-// {
-//     global $db;
-//     global $id;
-// }
+        return "<p style='color:red'>Password must be at least 8 characters long.</p>";
+    }
+
+    if (password_verify($new_pass, $old_pass)) {
+        $hashpassword = password_hash($new_pass, PASSWORD_DEFAULT);
+        mysqli_query($db, "UPDATE users SET password = '$hashpassword' WHERE id = '$id'");
+        return "<p style='color:green'>Password changed.</p>";
+    }
+    return "<p style='color:red'> The password you entered is incorrect. </p>";
+}

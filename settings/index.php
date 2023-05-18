@@ -1,18 +1,20 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["signin"])) {
+if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
     header("Location: ../signin");
     exit;
 }
 
-require "../functions/functions.php";
 
-if (isset($_POST["ganti_email"])) {
-    // $warning1 = ChangeEmail($_POST);
+require "../config/functions.php";
+
+if (isset($_POST["change_email"])) {
+    $warning_email = ChangeEmail($_POST);
 }
 
-if (isset($_POST["ganti_password"])) {
+if (isset($_POST["change_pass"])) {
+    $warning_pass = ChangePass($_POST);
 }
 
 
@@ -44,7 +46,11 @@ if (isset($_POST["ganti_password"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <li><a href="../admin">Admin</a></li>
+                <li>
+                    <?php if (!isset($_SESSION["signinUser"])) : ?>
+                        <a href="../admin">Admin</a>
+                    <?php endif; ?>
+                </li>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li id="close-icon" onclick="closeMenu()">
@@ -62,29 +68,35 @@ if (isset($_POST["ganti_password"])) {
                 <a href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
                 <h1>Settings your account</h1>
             </div>
-            <form>
+            <form action="" method="post">
                 <h2>Change your email</h2>
-                <input type="email" id="new-email" class="rounded-box" placeholder="New Email Address">
-                <button type="button" class="rounded-box primary-btn" onclick="newEmail()">Change
+                <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address">
+                <button type="submit" name="change_email" class="rounded-box primary-btn" onclick="newEmail()">Change Email</button>
+                <span class="success">
+                    <?php if (isset($warning_email)) : ?>
+                        <?= $warning_email ?>
+                    <?php endif; ?>
 
-                    Email</button>
-                <span class="success">Email Address changed.</span>
+                </span>
                 <hr>
                 <h2>Change your password</h2>
 
                 <div class="pass-box">
-                    <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password" required>
+                    <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password">
                     <img id="h-old-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
                     <img id="s-old-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <div class="pass-box">
-                    <input type="password" name="new-password" class="rounded-box new-password" placeholder="New Password" required>
+                    <input type="password" name="new-password" class="rounded-box new-password" placeholder="New Password">
                     <img id="h-new-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
                     <img id="s-new-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
-                <button type="button" class="rounded-box primary-btn" onclick="changePassword()">Change
-                    Password</button>
-                <span class="success">Password changed.</span>
+                <button type="submit" name="change_pass" class="rounded-box primary-btn" onclick="changePassword()">Change Password</button>
+                <span class="success">
+                    <?php if (isset($warning_pass)) {
+                        echo $warning_pass;
+                    } ?>
+                </span>
                 <hr>
             </form>
         </main>

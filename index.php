@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["signin"])) {
+if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
     $user_link = "signout";
     $user_status = "Sign Out";
     $user_link_primary = "collection";
