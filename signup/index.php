@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (isset($_SESSION["signin"])) {
+    header("Location: ../");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +32,6 @@
             <ul id="nav-list">
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li><a href="../signin" class="rounded-box btn nav-btn">Sign In</a></li>
                 <li id="close-icon" onclick="closeMenu()">
                     <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
                 </li>

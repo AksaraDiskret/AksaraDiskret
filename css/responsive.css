@@ -8,7 +8,7 @@
     }
 
     header {
-        padding: var(--spacing) 20px;
+        padding: var(--spacing) 24px;
     }
 
     nav ul {
@@ -37,7 +37,7 @@
     }
 
     .app-container {
-        padding: var(--spacing) 20px;
+        padding: var(--spacing) 24px;
     }
 
     h1 {

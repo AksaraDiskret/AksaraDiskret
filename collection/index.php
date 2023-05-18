@@ -7,6 +7,17 @@ if (!isset($_SESSION["signin"])) {
     exit;
 }
 
+require '../config/functions.php';
+$result = mysqli_query($db, "SELECT id FROM signin WHERE
+    id = 1");
+$row = mysqli_fetch_assoc($result);
+
+if (isset($row['id'])) {
+    $admin_link = '<li><a href="../admin">Admin</a></li>';
+} else {
+    $admin_link = '';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +43,7 @@ if (!isset($_SESSION["signin"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <li><a href="../admin">Admin</a></li>
+                <?= $admin_link ?>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li id="close-icon" onclick="closeMenu()">
@@ -63,64 +74,64 @@ if (!isset($_SESSION["signin"])) {
                     <div class="books-info">
                         <h2>Learning Algorithm</h2>
                         <p>Karen Liu</p>
-                        <span class="isbn">ISBN : 9787825426666</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9787825426666</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/deepmind-X5CSjHTjlgw-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>Neural Network</h2>
                         <p>Andrew Kim</p>
-                        <span class="isbn">ISBN : 9786011789073</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9786011789073</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/deepmind-mWztzk66I7Q-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>Singularity Paradox</h2>
                         <p>Olivia Chen</p>
-                        <span class="isbn">ISBN : 9780258222782</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9780258222782</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/deepmind-3VSgApkySLA-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>AI Rebellion</h2>
                         <p>Ethan Zhang</p>
-                        <span class="isbn">ISBN : 9782335341133</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9782335341133</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/wilhelm-gunkel-aEECAd2HuUE-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>The Glass House</h2>
                         <p>Jane Sanchez</p>
-                        <span class="isbn">ISBN : 9782463696112</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9782463696112</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/mk-s-_j0Wjh0Ya8I-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>Designing Realities</h2>
                         <p>Kevin Chen</p>
-                        <span class="isbn">ISBN : 9785240080548</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9785240080548</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/ivan-aleksic-FoYLV60_eHY-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>Blueprint for Chaos</h2>
                         <p>Matthew Davis</p>
-                        <span class="isbn">ISBN : 9785862813142</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9785862813142</div>
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <img loading="lazy" src="../assets/image/erol-ahmed-5nFU8l0RDiY-unsplash.jpg" alt="Book Cover">
                     <div class="books-info">
                         <h2>The Hidden City </h2>
                         <p>Carlos Rodriguez</p>
-                        <span class="isbn">ISBN : 9782463696112</span>
                     </div>
+                    <div class="isbn"><b>ISBN</b><br>9782463696112</div>
                 </a>
             </div>
         </main>
