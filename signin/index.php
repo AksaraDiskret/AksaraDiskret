@@ -7,7 +7,7 @@ if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
     $signin = $_COOKIE['signin'];
     $secret = $_COOKIE['secret'];
 
-    $result = mysqli_query($db, "SELECT email FROM signin WHERE
+    $result = mysqli_query($db, "SELECT email FROM admin WHERE
     id = '$signin'");
     $row = mysqli_fetch_assoc($result);
 
@@ -25,24 +25,7 @@ if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $pass = $_POST["password"];
 
-    $result = mysqli_query($db, "SELECT * FROM signin WHERE
-    email = '$email'");
-
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($pass, $row["password"])) {
-            $_SESSION["signin"] = true;
-
-            if (isset($_POST['remember-me'])) {
-                setcookie('signin', $row['id'], time() + 60, '/');
-                setcookie('secret', hash('sha512', $row['email']), time() + 60, '/');
-            }
-
-            header("Location: ../collection");
-            exit;
-        }
-    }
-    $wrong = true;
+    $wrong = Validation_signin($email, $pass);
 }
 
 ?>
@@ -94,7 +77,7 @@ if (isset($_POST["signin"])) {
                     <input type="checkbox" name="remember-me" id="remember-me">
                     <label for="remember-me">Remember Me</label>
                 </div>
-                <button type="submit" name="signin" class="rounded-box primary-btn"">Sign In</button>
+                <button type="submit" name="signin" class="rounded-box primary-btn">Sign In</button>
                 <?php if (isset($wrong)) : ?>
                     <span class=" failed">Email or password is invalid!</span>
                 <?php endif; ?>

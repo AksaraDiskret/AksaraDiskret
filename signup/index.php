@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (isset($_SESSION["signin"])) {
-    header("Location: ../");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,18 +35,25 @@ if (isset($_SESSION["signin"])) {
     <div class="app-container">
         <main>
             <h1>Sign Up to make account</h1>
-            <form>
-                <input type="text" id="first-name" class="rounded-box" placeholder="First Name">
-                <input type="text" id="last-name" class="rounded-box" placeholder="Last Name">
+
+            <form action="" method="post">
+                <input type="text" name="first_name" id="first-name" class="rounded-box" placeholder="First Name">
+                <input type="text" name="last_name" id="last-name" class="rounded-box" placeholder="Last Name">
                 <input type="email" name="email" class="rounded-box" placeholder="Email Address">
                 <div class="pass-box">
+
                     <input type="password" name="password" class="rounded-box default-password" placeholder="Password" required>
                     <img id="h-default-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
                     <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
+
                 </div>
-                <button type="button" class="rounded-box primary-btn" id="data-btn" onclick="LoadData()">Sign
+                <button type="submit" class="rounded-box primary-btn" id="data-btn" name="submit">Sign
                     Up</button>
-                <span class="failed"></span>
+                <span class="failed">
+                    <?php if (isset($Warning)) {
+                        echo $Warning;
+                    } ?>
+                </span>
                 <p>Already have an Account? <a href="../signin" class="link">Sign In</a></p>
             </form>
         </main>

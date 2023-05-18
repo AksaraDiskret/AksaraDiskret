@@ -2,20 +2,9 @@
 
 session_start();
 
-if (!isset($_SESSION["signin"])) {
+if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
     header("Location: ../signin");
     exit;
-}
-
-require '../config/functions.php';
-$result = mysqli_query($db, "SELECT id FROM signin WHERE
-    id = 1");
-$row = mysqli_fetch_assoc($result);
-
-if (isset($row['id'])) {
-    $admin_link = '<li><a href="../admin">Admin</a></li>';
-} else {
-    $admin_link = '';
 }
 
 ?>
@@ -33,7 +22,9 @@ if (isset($row['id'])) {
     <link rel="stylesheet" href="../css/collection.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-light.svg" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon/ad-dark.svg" media="(prefers-color-scheme: light)">
 </head>
@@ -43,7 +34,6 @@ if (isset($row['id'])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <?= $admin_link ?>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li id="close-icon" onclick="closeMenu()">
@@ -60,7 +50,14 @@ if (isset($row['id'])) {
                 <div class="data">
                     <p>Welcome,</p>
                     <div class="account-menu">
-                        <span id="user">Doe Doe</span>
+                        <span id="user">
+                            <?php if (isset($_SESSION["userName"])) : ?>
+                                <?= $_SESSION["userName"] ?>
+                            <?php else : ?>
+                                Admin Aksara-Diskret
+                            <?php endif; ?>
+
+                        </span>
                         <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                     </div>
                 </div>

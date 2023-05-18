@@ -13,6 +13,7 @@ main {
 .pass-box {
     position: relative;
     display: flex;
+    flex-direction: column;
 }
 
 .pass-box input {
