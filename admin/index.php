@@ -61,7 +61,7 @@ if (!$row['id']) {
                 <input type="file" class="rounded-box" accept="image/png, image/jpeg">
                 <p>File, only accept PDF file :</p>
                 <input type="file" class="rounded-box" accept="application/pdf">
-                <input type="text" id="book-isbn" class="rounded-box" placeholder="ISBN">
+                <input type="number" id="book-isbn" class="rounded-box" placeholder="ISBN">
                 <input type="text" id="book-title" class="rounded-box" placeholder="Title">
                 <input type="text" id="book-author" class="rounded-box" placeholder="Author">
                 <p>Choose an action :</p>
@@ -78,7 +78,7 @@ if (!$row['id']) {
                 <span class="success">Book uploaded / Book edited.</span>
                 <hr>
                 <h2>Delete a book</h2>
-                <input type="text" id="book-identifier" class="rounded-box" placeholder="Book ISBN, Title, or the Author">
+                <input type="number" id="book-isbn" class="rounded-box" placeholder="Book ISBN">
                 <div class="check-box">
                     <input type="checkbox" id="delete-confirm" onclick="deleteConfirm()">
                     <label for="delete-confirm">Confirm to delete the book.</label>
