@@ -52,32 +52,34 @@ if (isset($_SESSION["signin"])) {
     <div class="app-container">
         <main>
             <h1>All About Us</h1>
-            <div class="content">
+            <div class="content about">
                 <div class="item">
                     <h2>What is Aksara Diskret?</h2>
                     <p>Is an online library that offers a wide variety of books.</p>
                 </div>
                 <div class="item">
-                    <h2>We are</h2>
-                    <p>Aksara Diskret teams :</p>
-                    <ul>
-                        <li><b>Rezky Wahyudi Mokobombang</b>
-                            <p>210211060165</p>
-                            <span class="team-role">(Frontend Engineer)</span>
-                        </li>
-                        <li><b>Muhammat Rizky Saria</b>
-                            <p>210211060100</p>
-                            <span class="team-role">(Backend Engineer)</span>
-                        </li>
-                        <li><b>Daniel Rompas</b>
-                            <p>20021106052</p>
-                            <span class="team-role">(UI Designer)</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="item">
                     <h2>Project Presentation</h2>
                     <a href="https://drive.google.com/drive/folders/1MwTR6dBGgnmQBqwb2W4NQu-GCC-7SzQ1?usp=share_link" target="_blank" class="link">Google Drive</a>
+                </div>
+                <div class="item teams">
+                    <h2>Our Teams :</h2>
+                    <ul>
+                        <li class="rounded-box">
+                            <div class="team-role">UI Designer</div>
+                            <b>Daniel Rompas</b>
+                            <p class="nim">20021106052</p>
+                        </li>
+                        <li class="rounded-box">
+                            <div class="team-role">Frontend Engineer</div>
+                            <b>Rezky Wahyudi Mokobombang</b>
+                            <p class="nim">210211060165</p>
+                        </li>
+                        <li class="rounded-box">
+                            <div class="team-role">Backend Engineer</div>
+                            <b>Muhammat Rizky Saria</b>
+                            <p class="nim">210211060100</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </main>

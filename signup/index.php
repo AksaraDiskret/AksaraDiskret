@@ -9,7 +9,6 @@ if (isset($_POST["submit"])) {
 
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -35,7 +34,6 @@ if (isset($_POST["submit"])) {
             <ul id="nav-list">
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li><a href="../signin" class="rounded-box btn nav-btn">Sign In</a></li>
                 <li id="close-icon" onclick="closeMenu()">
                     <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
                 </li>

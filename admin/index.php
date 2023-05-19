@@ -13,6 +13,7 @@ $row = mysqli_fetch_assoc($result);
 
 if (!$row['id']) {
     header("Location: ../collection");
+    exit;
 }
 ?>
 <!DOCTYPE html>
