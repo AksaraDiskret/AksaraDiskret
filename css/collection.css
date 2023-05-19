@@ -56,6 +56,7 @@ a[href="../settings"] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 16px;
     text-decoration: none;
     border: 1px solid var(--darkgrey);
     overflow: hidden;
@@ -72,6 +73,7 @@ a[href="../settings"] {
 
 .books-info {
     padding: 16px;
+    padding-bottom: 0;
 }
 
 .isbn {
@@ -100,8 +102,12 @@ a[href="../settings"] {
         gap: 24px;
     }
 
+    h2 {
+        font-size: 20px;
+    }
+
     .books-item p {
-        font-size: 14px;
+        font-size: 16px;
     }
 }
 
@@ -112,13 +118,13 @@ a[href="../settings"] {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 630px) {
     .books-content {
         grid-template-columns: repeat(3, auto);
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1024px) {
     .books-content {
         grid-template-columns: repeat(4, auto);
     }
