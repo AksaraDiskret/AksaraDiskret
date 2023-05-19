@@ -63,6 +63,14 @@
         padding: var(--spacing) 32px;
     }
 
+    h1{
+        font-size: 20px;
+    }
+
+    .primary-content p{
+        font-size: 12px;
+    }
+
     h2 {
         font-size: 20px;
     }
@@ -82,11 +90,11 @@
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 24px;
     }
 
     .primary-content p {
-        font-size: 20px;
+        font-size: 16px;
     }
 }
 
@@ -104,7 +112,7 @@
     }
 
     h1 {
-        font-size: 40px;
+        font-size: 32px;
     }
 }
 
@@ -122,6 +130,6 @@
     }
 
     h1 {
-        font-size: 48px;
+        font-size: 40px;
     }
 }
