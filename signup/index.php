@@ -3,13 +3,8 @@
 session_start();
 require "../config/functions.php";
 
-<<<<<<< HEAD
 if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
 
-
-=======
-if (isset($_SESSION["signin"])) {
->>>>>>> 3e7f65b0915ea2a17ef7506a55753a754516a16d
     header("Location: ../collection");
     exit;
 }
