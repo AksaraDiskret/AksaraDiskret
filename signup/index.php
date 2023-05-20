@@ -1,6 +1,12 @@
 <?php
 
+session_start();
 require "../config/functions.php";
+
+if (isset($_SESSION["signin"])) {
+    header("Location: ../collection");
+    exit;
+}
 
 if (isset($_POST["submit"])) {
     $Warning = addUser($_POST);
