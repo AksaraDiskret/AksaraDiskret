@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
+if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"]) || isset($_COOKIE["secret"])) {
     $user_link = "../signout";
     $user_status = "Sign Out";
 } else {
@@ -38,12 +38,11 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
                 <li><a href="<?= $user_link ?>" class="rounded-box btn nav-btn"><?= $user_status ?></a></li>
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">
@@ -51,9 +50,8 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
             <h1>Frequently Asked Questions</h1>
             <div class="content">
                 <div class="item">
-                    <h2>Are book on this site is legal?</h2>
-                    <p>Yes, if the books are in the public domain or have permission from the author or publisher.
-                        Downloading copyrighted books without permission is illegal.</p>
+                    <h2>what is a Aksara Diskret?</h2>
+                    <p>is a website that provides free electronic books.</p>
                 </div>
                 <div class="item">
                     <h2>Can I find all types of books on this site?</h2>
@@ -62,6 +60,29 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                 <div class="item">
                     <h2>Are there any risks associated with downloading books from our site?</h2>
                     <p>It's possible, but we try to check every book received here and it is safe enough to download.
+                    </p>
+                </div>
+                <div class="item">
+                    <h2>Is the book provided here original?</h2>
+                    <p>Some of the books we provide may be original.
+                    </p>
+                </div>
+                <div class="item">
+                    <h2>
+                        Do you provide pirated books?
+                    </h2>
+                    <p>Yes, it is possible that we provide pirated books. However, it is important to note that not everyone can afford to buy books.
+                    </p>
+                </div>
+                <div class="item">
+                    <h2>Are you willing to bear the consequences?</h2>
+                    <p>Yes, we must do so.
+                    </p>
+                </div>
+                <div class="item">
+                    <h2>What is your motivation for building this website?</h2>
+                    <p>
+                        with books, everyone has the right to dig and feel the depth of the well of knowledge. does not only apply to those who have material advantages.
                     </p>
                 </div>
             </div>

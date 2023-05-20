@@ -55,12 +55,11 @@ if (isset($_POST["change_pass"])) {
                 </li>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">
@@ -89,9 +88,9 @@ if (isset($_POST["change_pass"])) {
                     <img id="s-old-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <div class="pass-box">
-                    <input type="password" name="new-password" class="rounded-box new-password" placeholder="New Password">
-                    <img id="h-new-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
-                    <img id="s-new-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
+                    <input type="password" name="new-password" class="rounded-box default-password" placeholder="Password" required>
+                    <img id="h-default-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
+                    <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <button type="submit" name="change_pass" class="rounded-box primary-btn" onclick="changePassword()">Change Password</button>
                 <span class="success">

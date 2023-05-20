@@ -4,6 +4,7 @@ session_start();
 require '../config/functions.php';
 
 
+
 if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
     $signin = $_COOKIE['signin'];
     $secret = $_COOKIE['secret'];
@@ -21,19 +22,13 @@ if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
     if ($secret === hash('sha512', $row2['email'])) {
         $_SESSION["signinUser"] = true;
     }
-
-    // retrieve the username with these conditions when the browser is closed then opened again
-    $hasil = mysqli_query($db, "SELECT CONCAT(first_name, ' ' ,last_name) AS USERNAME FROM users WHERE id = $signin");
-
-    if ($hasil) {
-        $row = mysqli_fetch_assoc($hasil);
-        $username = $row["USERNAME"];
-        $_SESSION["USERNAME"] = $username;
-    }
 }
 
 
-
+if (isset($_SESSION["signin"])) {
+    header("Location: ../collection");
+    exit;
+}
 
 if (isset($_POST["signin"])) {
     $email = $_POST["email"];
@@ -74,12 +69,11 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
             <ul id="nav-list">
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">

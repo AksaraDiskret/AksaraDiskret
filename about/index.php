@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
+if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"]) || isset($_COOKIE["secret"])) {
     $user_link = "../signout";
     $user_status = "Sign Out";
 } else {
@@ -41,12 +41,11 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                 <li><a href="../about">About</a></li>
                 <li><a href="<?= $user_link ?>" class="rounded-box btn nav-btn"><?= $user_status ?></a></li>
 
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">
@@ -61,23 +60,23 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                     <h2>Project Presentation</h2>
                     <a href="https://drive.google.com/drive/folders/1MwTR6dBGgnmQBqwb2W4NQu-GCC-7SzQ1?usp=share_link" target="_blank" class="link">Google Drive</a>
                 </div>
-                <div class="item teams">
+                <div class="item">
                     <h2>Our Teams :</h2>
                     <ul>
                         <li class="rounded-box">
-                            <div class="team-role">UI Designer</div>
                             <b>Daniel Rompas</b>
                             <p class="nim">20021106052</p>
+                            <div class="team-role">UI Designer</div>
                         </li>
                         <li class="rounded-box">
-                            <div class="team-role">Frontend Engineer</div>
                             <b>Rezky Wahyudi Mokobombang</b>
                             <p class="nim">210211060165</p>
+                            <div class="team-role">Frontend Engineer</div>
                         </li>
                         <li class="rounded-box">
-                            <div class="team-role">Backend Engineer</div>
                             <b>Muhammat Rizky Saria</b>
                             <p class="nim">210211060100</p>
+                            <div class="team-role">Backend Engineer</div>
                         </li>
                     </ul>
                 </div>

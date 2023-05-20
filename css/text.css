@@ -16,21 +16,17 @@ main {
     max-width: 75ch;
 }
 
-.content.about {
-    flex-direction: row;
-}
-
 .content,
 .item {
     flex-wrap: wrap;
 }
 
 .item {
+    width: 100%;
     gap: 8px;
 }
 
 .item li {
-    text-align: center;
     border: 1px solid #000;
     padding: 16px;
 }
@@ -44,13 +40,13 @@ main {
     flex-wrap: wrap;
     gap: 16px;
     list-style: none;
+    width: 100%;
 }
 
 .team-role {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 36px;
+    color: var(--primary);
+    font-size: 24px;
     font-family: 'Caveat', cursive;
-    padding-bottom: 4px;
 }
 
 .link {

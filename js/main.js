@@ -1,20 +1,22 @@
 const nav = document.getElementById("nav-list");
-const close = document.getElementById("close-icon");
+const menuIcon = document.getElementById("menu-icon");
+const closeIcon = document.getElementById("close-icon");
 
-function showMenu() {
-    nav.classList.add("show-menu");
-    close.style.display = "block";
-}
-
-function closeMenu() {
+function mobileNav() {
+  nav.classList.toggle("show-menu");
+  if (nav.classList.contains("show-menu")) {
+    menuIcon.style.display = "none";
+    closeIcon.style.display = "block";
+  } else {
     nav.removeAttribute("class");
-    close.removeAttribute("style");
+    menuIcon.removeAttribute("style");
+    closeIcon.removeAttribute("style");
+  }
 }
 
 const elements = [
   { s: "s-default-pass", h: "h-default-pass", show: ".default-password" },
-  { s: "s-old-pass", h: "h-old-pass", show: ".old-password" },
-  { s: "s-new-pass", h: "h-new-pass", show: ".new-password" }
+  { s: "s-old-pass", h: "h-old-pass", show: ".old-password" }
 ];
 
 elements.forEach(({ s, h, show }) => {
@@ -42,26 +44,24 @@ function hidePassword(spassword, hpassword, show) {
   show.setAttribute("type", "password");
 }
 
-
-
 function actionConfirm() {
-    const actionConfirm = document.getElementById("action-confirm");
-    const actionBtn = document.getElementById("action-btn");
+  const actionConfirm = document.getElementById("action-confirm");
+  const actionBtn = document.getElementById("action-btn");
 
-    if (actionConfirm.checked) {
-        actionBtn.removeAttribute("disabled");
-    } else {
-        actionBtn.setAttribute("disabled", "");
-    }
+  if (actionConfirm.checked) {
+    actionBtn.removeAttribute("disabled");
+  } else {
+    actionBtn.setAttribute("disabled", "");
+  }
 }
 
 function deleteConfirm() {
-    const deleteConfirm = document.getElementById("delete-confirm");
-    const deleteBtn = document.getElementById("delete-btn");
+  const deleteConfirm = document.getElementById("delete-confirm");
+  const deleteBtn = document.getElementById("delete-btn");
 
-    if (deleteConfirm.checked) {
-        deleteBtn.removeAttribute("disabled");
-    } else {
-        deleteBtn.setAttribute("disabled", "");
-    }
+  if (deleteConfirm.checked) {
+    deleteBtn.removeAttribute("disabled");
+  } else {
+    deleteBtn.setAttribute("disabled", "");
+  }
 }
