@@ -1,6 +1,5 @@
 <?php
 $db = mysqli_connect("localhost", "root", "", "aksara_diskret");
-
 function rowData($que)
 {
     $rows = [];
@@ -84,7 +83,8 @@ function Validation_signin($email, $pass)
             setcookie('signin', $row_users[0], time() + 60, '/');
             setcookie('secret', hash('sha512', $row_users[3]), time() + 60, '/');
         }
-        $_SESSION["userName"] = "$row_users[1] $row_users[2]";
+        // The username will be taken from here when the new user logs in for the first time
+        $_SESSION["USERNAME"] = "$row_users[1] $row_users[2]";
         $_SESSION["idUser"] = $row_users[0];
         header("Location: ../collection");
         exit;
@@ -92,6 +92,8 @@ function Validation_signin($email, $pass)
 
     return true;
 }
+
+
 
 function addNewEmailAfterChange($new_email, $id)
 {

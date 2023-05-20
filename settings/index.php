@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
     header("Location: ../signin");
     exit;

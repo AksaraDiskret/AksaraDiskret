@@ -1,12 +1,14 @@
 <?php
 
 session_start();
+require "../config/functions.php";
 
 if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
     header("Location: ../signin");
     exit;
 }
 
+$_SESSION
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,8 +59,8 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                     <p>Welcome,</p>
                     <div class="account-menu">
                         <span id="user">
-                            <?php if (isset($_SESSION["userName"])) : ?>
-                                <?= $_SESSION["userName"] ?>
+                            <?php if (isset($_SESSION["USERNAME"])) : ?>
+                                <?= $_SESSION["USERNAME"] ?>
                             <?php else : ?>
                                 Admin Aksara-Diskret
                             <?php endif; ?>

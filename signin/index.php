@@ -3,29 +3,48 @@
 session_start();
 require '../config/functions.php';
 
+
 if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
     $signin = $_COOKIE['signin'];
     $secret = $_COOKIE['secret'];
 
     $result = mysqli_query($db, "SELECT email FROM admin WHERE
     id = '$signin'");
+    $result2 = mysqli_query($db, "SELECT email FROM users WHERE
+    id = '$signin'");
     $row = mysqli_fetch_assoc($result);
+    $row2 = mysqli_fetch_assoc($result2);
 
     if ($secret === hash('sha512', $row['email'])) {
         $_SESSION["signin"] = true;
     }
+    if ($secret === hash('sha512', $row2['email'])) {
+        $_SESSION["signinUser"] = true;
+    }
+
+    // retrieve the username with these conditions when the browser is closed then opened again
+    $hasil = mysqli_query($db, "SELECT CONCAT(first_name, ' ' ,last_name) AS USERNAME FROM users WHERE id = $signin");
+
+    if ($hasil) {
+        $row = mysqli_fetch_assoc($hasil);
+        $username = $row["USERNAME"];
+        $_SESSION["USERNAME"] = $username;
+    }
 }
 
-if (isset($_SESSION["signin"])) {
-    header("Location: ../collection");
-    exit;
-}
+
+
 
 if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $pass = $_POST["password"];
 
     $wrong = Validation_signin($email, $pass);
+}
+
+if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
+    header("Location: ../collection");
+    exit;
 }
 
 ?>
