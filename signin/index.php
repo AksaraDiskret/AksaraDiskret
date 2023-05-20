@@ -55,12 +55,11 @@ if (isset($_POST["signin"])) {
             <ul id="nav-list">
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">

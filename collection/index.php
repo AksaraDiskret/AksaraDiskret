@@ -39,12 +39,11 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 <?php endif; ?>
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
-                <li id="close-icon" onclick="closeMenu()">
-                    <img src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
-                </li>
             </ul>
         </nav>
-        <div id="menu-icon" onclick="showMenu()"><img src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+        <div id="nav-icon" onclick="mobileNav()">
+            <img id="menu-icon" src="../assets/icon/remixicon-menu-5-line.svg" alt="Menu Icon">
+            <img id="close-icon" src="../assets/icon/remixicon-close-line.svg" alt="Close Icon">
         </div>
     </header>
     <div class="app-container">
@@ -70,7 +69,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
             <div class="books-content">
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/deepmind-esyG2Jt_uIc-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/deepmind-esyG2Jt_uIc-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>Learning Algorithm</h2>
                             <p>Karen Liu</p>
@@ -80,7 +79,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/deepmind-X5CSjHTjlgw-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/deepmind-X5CSjHTjlgw-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>Neural Network</h2>
                             <p>Andrew Kim</p>
@@ -90,7 +89,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/deepmind-mWztzk66I7Q-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/deepmind-mWztzk66I7Q-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>Singularity Paradox</h2>
                             <p>Olivia Chen</p>
@@ -100,7 +99,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/deepmind-3VSgApkySLA-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/deepmind-3VSgApkySLA-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>AI Rebellion</h2>
                             <p>Ethan Zhang</p>
@@ -110,7 +109,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/wilhelm-gunkel-aEECAd2HuUE-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/wilhelm-gunkel-aEECAd2HuUE-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>The Glass House</h2>
                             <p>Jane Sanchez</p>
@@ -120,7 +119,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/mk-s-_j0Wjh0Ya8I-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/mk-s-_j0Wjh0Ya8I-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>Designing Realities</h2>
                             <p>Kevin Chen</p>
@@ -130,7 +129,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/ivan-aleksic-FoYLV60_eHY-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/ivan-aleksic-FoYLV60_eHY-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>Blueprint for Chaos</h2>
                             <p>Matthew Davis</p>
@@ -140,7 +139,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
                 </a>
                 <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
                     <div class="book">
-                        <img loading="lazy" src="../assets/image/erol-ahmed-5nFU8l0RDiY-unsplash.jpg" alt="Book Cover">
+                        <img src="../assets/image/erol-ahmed-5nFU8l0RDiY-unsplash.jpg" alt="Book Cover">
                         <div class="books-info">
                             <h2>The Hidden City </h2>
                             <p>Carlos Rodriguez</p>

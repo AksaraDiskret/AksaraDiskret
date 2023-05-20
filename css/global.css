@@ -98,8 +98,7 @@ nav ul {
     list-style: none;
 }
 
-#menu-icon,
-#close-icon {
+#nav-icon {
     display: none;
 }
 
@@ -108,7 +107,7 @@ main {
     grid-template-columns: 1fr 1fr;
     place-items: center;
     min-height: 100vh;
-    min-height: 100svh;
+    min-height: 100dvh;
 }
 
 h1 {
