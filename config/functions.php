@@ -18,8 +18,10 @@ function CheckingEmail($email)
     global $db;
     // mengecek apakah email sudah terdaftar atau belum
     $result = mysqli_query($db, "SELECT email FROM users");
-    $email_in_db = rowData($result);
-    if (in_array($email, $email_in_db)) {
+    $result_user = mysqli_query($db, "SELECT email FROM admin");
+    $email_in_User = rowData($result);
+    $email_in_Admin = rowData($result_user);
+    if (in_array($email, $email_in_User) || in_array($email, $email_in_Admin)) {
         return true;
     }
 }
@@ -91,13 +93,9 @@ function Validation_signin($email, $pass)
     return true;
 }
 
-
-function ChangeEmail($data)
+function addNewEmailAfterChange($new_email, $id)
 {
     global $db;
-    $new_email = htmlspecialchars($data["new_email"]);
-    $id = $_SESSION["idUser"];
-
     if (CheckingEmail($new_email)) {
         return "<p style='color:red'>Email already registered. Choose another or log in.</p>";
     }
@@ -106,6 +104,22 @@ function ChangeEmail($data)
 
     if (mysqli_affected_rows($db) > 0) {
         return "<p style='color:green'>Email Changed</p>";
+    }
+};
+
+function ChangeEmail($data)
+{
+    $new_email = htmlspecialchars($data["new_email"]);
+    if (isset($_SESSION["idUser"])) {
+        $id_User = $_SESSION["idUser"];
+    } else {
+        $id_Admin = $_SESSION["idAdmin"];
+    }
+
+    if (isset($id_Admin)) {
+        return addNewEmailAfterChange($new_email, $id_Admin);
+    } else {
+        return addNewEmailAfterChange($new_email, $id_User);
     }
 }
 
