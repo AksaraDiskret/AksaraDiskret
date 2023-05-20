@@ -37,17 +37,17 @@ function addUser($data)
 
     //mengecek apakah $password kurang dari dari 8 karakter
     if (strlen("$password") < 8) {
-        return "<p style='color:red'>Password must be at least 8 characters long.</p>";
+        return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
     // enskirpsi passowrd
     $hashpassword =  password_hash($password, PASSWORD_DEFAULT);
     $queryInsert = "INSERT INTO users VALUES ('', '$first_name','$last_name','$email','$hashpassword')";
     if (CheckingEmail($email)) {
-        return "<p style='color:red'>Email already registered. Choose another or log in.</p>";
+        return '<span class="failed">Email address is already registered. Please use another email.</span>';
     }
     mysqli_query($db, $queryInsert);
     if (mysqli_affected_rows($db) > 0) {
-        return "<p style='color:green'>Registration successful! Welcome aboard.</p>";
+        return '<span class="success">Registration successful! Welcome aboard.</span>';
     }
 }
 
@@ -99,13 +99,13 @@ function addNewEmailAfterChange($new_email, $id)
 {
     global $db;
     if (CheckingEmail($new_email)) {
-        return "<p style='color:red'>Email already registered. Choose another or log in.</p>";
+        return '<span class="failed">Email address is already registered. Please use another email.</span>';
     }
 
     mysqli_query($db, "UPDATE users SET email='$new_email' WHERE id = '$id'");
 
     if (mysqli_affected_rows($db) > 0) {
-        return "<p style='color:green'>Email Changed</p>";
+        return '<span class="success">Email Changed</span>';
     }
 };
 
@@ -135,13 +135,13 @@ function ChangePass($data)
 
     if (strlen($new_pass) < 8) {
 
-        return "<p style='color:red'>Password must be at least 8 characters long.</p>";
+        return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
 
     if (password_verify($new_pass, $old_pass)) {
         $hashpassword = password_hash($new_pass, PASSWORD_DEFAULT);
         mysqli_query($db, "UPDATE users SET password = '$hashpassword' WHERE id = '$id'");
-        return "<p style='color:green'>Password changed.</p>";
+        return '<span class="success">Password changed.</span>';
     }
-    return "<p style='color:red'> The password you entered is incorrect. </p>";
+    return '<span class="failed">The password you entered is incorrect.</span>';
 }

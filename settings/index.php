@@ -72,13 +72,10 @@ if (isset($_POST["change_pass"])) {
             <form action="" method="post">
                 <h2>Change your email</h2>
                 <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address">
+                <?php if (isset($warning_email)) : ?>
+                    <?= $warning_email ?>
+                <?php endif; ?>
                 <button type="submit" name="change_email" class="rounded-box primary-btn" onclick="newEmail()">Change Email</button>
-                <span class="success">
-                    <?php if (isset($warning_email)) : ?>
-                        <?= $warning_email ?>
-                    <?php endif; ?>
-
-                </span>
                 <hr>
                 <h2>Change your password</h2>
 

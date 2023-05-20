@@ -3,9 +3,13 @@
 session_start();
 require "../config/functions.php";
 
+<<<<<<< HEAD
 if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
 
 
+=======
+if (isset($_SESSION["signin"])) {
+>>>>>>> 3e7f65b0915ea2a17ef7506a55753a754516a16d
     header("Location: ../collection");
     exit;
 }
@@ -51,12 +55,12 @@ if (isset($_POST["submit"])) {
     </header>
     <div class="app-container">
         <main>
-            <h1>Sign Up to make account</h1>
+            <h1>Sign Up to Get Started</h1>
 
             <form action="" method="post">
-                <input type="text" name="first_name" id="first-name" class="rounded-box" placeholder="First Name">
-                <input type="text" name="last_name" id="last-name" class="rounded-box" placeholder="Last Name">
-                <input type="email" name="email" class="rounded-box" placeholder="Email Address">
+                <input type="text" name="first_name" id="first-name" class="rounded-box" placeholder="First Name" required>
+                <input type="text" name="last_name" id="last-name" class="rounded-box" placeholder="Last Name" required>
+                <input type="email" name="email" class="rounded-box" placeholder="Email Address" required>
                 <div class="pass-box">
 
                     <input type="password" name="password" class="rounded-box default-password" placeholder="Password" required>
@@ -64,13 +68,11 @@ if (isset($_POST["submit"])) {
                     <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
 
                 </div>
+                <?php if (isset($Warning)) {
+                    echo $Warning;
+                } ?>
                 <button type="submit" class="rounded-box primary-btn" id="data-btn" name="submit">Sign
                     Up</button>
-                <span class="failed">
-                    <?php if (isset($Warning)) {
-                        echo $Warning;
-                    } ?>
-                </span>
                 <p>Already have an Account? <a href="../signin" class="link">Sign In</a></p>
             </form>
         </main>

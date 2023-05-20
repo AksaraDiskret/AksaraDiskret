@@ -25,6 +25,7 @@ if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
 }
 
 
+
 if (isset($_SESSION["signin"])) {
     header("Location: ../collection");
     exit;
@@ -78,7 +79,7 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
     </header>
     <div class="app-container">
         <main>
-            <h1>Sign In to your account</h1>
+            <h1>Sign In to your Account</h1>
             <form method="post">
                 <input type="email" name="email" class="rounded-box" placeholder="Email Address" required>
                 <div class="pass-box">
@@ -90,10 +91,10 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                     <input type="checkbox" name="remember-me" id="remember-me">
                     <label for="remember-me">Remember Me</label>
                 </div>
-                <button type="submit" name="signin" class="rounded-box primary-btn">Sign In</button>
                 <?php if (isset($wrong)) : ?>
-                    <span class=" failed">Email or password is invalid!</span>
+                    <span class="failed">Email Address or Password is invalid!</span>
                 <?php endif; ?>
+                <button type="submit" name="signin" class="rounded-box primary-btn">Sign In</button>
                 <p>Doesn't have an account? <a href="../signup" class="link">Sign up</a></p>
             </form>
         </main>
