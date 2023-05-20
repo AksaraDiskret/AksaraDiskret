@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
+if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"]) || isset($_COOKIE["secret"])) {
     $user_link = "../signout";
     $user_status = "Sign Out";
 } else {

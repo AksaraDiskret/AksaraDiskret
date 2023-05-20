@@ -3,19 +3,6 @@
 session_start();
 require '../config/functions.php';
 
-if (isset($_COOKIE['signin']) && isset($_COOKIE['secret'])) {
-    $signin = $_COOKIE['signin'];
-    $secret = $_COOKIE['secret'];
-
-    $result = mysqli_query($db, "SELECT email FROM admin WHERE
-    id = '$signin'");
-    $row = mysqli_fetch_assoc($result);
-
-    if ($secret === hash('sha512', $row['email'])) {
-        $_SESSION["signin"] = true;
-    }
-}
-
 if (isset($_SESSION["signin"])) {
     header("Location: ../collection");
     exit;
