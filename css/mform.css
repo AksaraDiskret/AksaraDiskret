@@ -5,6 +5,10 @@ main {
     gap: 32px;
 }
 
+p {
+    text-align: center;
+}
+
 .admin p {
     font-weight: 500;
     margin-bottom: -12px;
@@ -30,8 +34,7 @@ main {
 }
 
 #h-default-pass,
-#h-old-pass,
-#h-new-pass {
+#h-old-pass {
     opacity: 0;
 }
 
