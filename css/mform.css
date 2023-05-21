@@ -14,6 +14,11 @@ main {
     margin-bottom: -12px;
 }
 
+.back {
+    align-self: flex-start;
+    max-width: fit-content;
+}
+
 .pass-box {
     position: relative;
     display: flex;

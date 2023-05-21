@@ -106,17 +106,14 @@ nav ul {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    place-items: center;
+    place-content: center;
+    align-items: center;
     min-height: 100vh;
     min-height: 100dvh;
 }
 
 h1 {
     font-weight: 900;
-}
-
-.primary-content h1 {
-    width: 23ch;
 }
 
 form {

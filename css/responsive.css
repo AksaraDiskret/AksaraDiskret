@@ -81,6 +81,10 @@
         font-size: 20px;
     }
 
+    .primary-content h1 {
+        width: 23ch;
+    }
+
     .primary-content p {
         font-size: 12px;
     }

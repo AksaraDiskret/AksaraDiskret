@@ -35,7 +35,6 @@ if (isset($_POST["change_pass"])) {
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/mform.css">
-    <link rel="stylesheet" href="../css/settings.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -64,11 +63,9 @@ if (isset($_POST["change_pass"])) {
     </header>
     <div class="app-container">
         <main>
-            <div class="setting">
-                <a href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
-                <h1>Settings your account</h1>
-            </div>
-            <form  method="post">
+            <a class="back" href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
+            <h1>Settings your account</h1>
+            <form method="post">
                 <h2>Change your email</h2>
                 <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address" required>
                 <?php if (isset($warning_email)) : ?>
@@ -77,7 +74,7 @@ if (isset($_POST["change_pass"])) {
                 <button type="submit" name="change_email" class="rounded-box primary-btn">Change Email</button>
                 <hr>
             </form>
-            <form  method="post">
+            <form method="post">
                 <h2>Change your password</h2>
                 <div class="pass-box">
                     <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password" required>

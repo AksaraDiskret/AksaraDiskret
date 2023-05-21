@@ -28,7 +28,6 @@ if (!$row['id']) {
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/mform.css">
-    <link rel="stylesheet" href="../css/settings.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -53,10 +52,8 @@ if (!$row['id']) {
     </header>
     <div class="app-container">
         <main>
-            <div class="setting">
-                <a href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
-                <h1>Aksara Diskret Admin Area</h1>
-            </div>
+            <a class="back" href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
+            <h1>Aksara Diskret Admin Area</h1>
             <form class="admin" method="post">
                 <h2>Upload or Edit a book</h2>
                 <p>Cover, minimum size 3000 x 2000 pixel or 3:2 aspect ratio :</p>
