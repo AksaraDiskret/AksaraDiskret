@@ -77,11 +77,7 @@ footer {
 a {
     display: inline-block;
     color: inherit;
-<<<<<<< HEAD
-    text-underline-offset: 3px;
-=======
     text-underline-offset: 4px;
->>>>>>> 3e7f65b0915ea2a17ef7506a55753a754516a16d
 }
 
 a:hover {
