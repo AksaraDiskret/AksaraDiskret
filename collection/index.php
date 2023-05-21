@@ -68,13 +68,13 @@ if (isset($_COOKIE["secret"])) {
                 <div class="data">
                     <p>Welcome,</p>
                     <div class="account-menu">
-                        <span id="user">
-                            <?php if (isset($_SESSION["USERNAME"])) : ?>
+                        <?php if (isset($_SESSION["USERNAME"])) : ?>
+                            <span id="user">
                                 <?= $_SESSION["USERNAME"] ?>
-                            <?php else : ?>
-                                Admin
-                            <?php endif; ?>
-                        </span>
+                            </span>
+                        <?php else : ?>
+                            <span id="user">Araska Terksid</span>
+                        <?php endif; ?>
                         <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                     </div>
                 </div>

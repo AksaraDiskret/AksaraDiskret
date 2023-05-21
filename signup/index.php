@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
         <main>
             <h1>Sign Up to Get Started</h1>
 
-            <form action="" method="post">
+            <form  method="post">
                 <input type="text" name="first_name" id="first-name" class="rounded-box" placeholder="First Name" required>
                 <input type="text" name="last_name" id="last-name" class="rounded-box" placeholder="Last Name" required>
                 <input type="email" name="email" class="rounded-box" placeholder="Email Address" required>
@@ -68,7 +68,7 @@ if (isset($_POST["submit"])) {
                 } ?>
                 <button type="submit" class="rounded-box primary-btn" id="data-btn" name="submit">Sign
                     Up</button>
-                <p>Already have an Account? <a href="../signin" class="link">Sign In</a></p>
+                <p class="user-note">Already have an Account? <a href="../signin" class="link">Sign In</a></p>
             </form>
         </main>
         <footer>

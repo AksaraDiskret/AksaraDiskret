@@ -5,7 +5,7 @@ main {
     gap: 32px;
 }
 
-p {
+.user-note {
     text-align: center;
 }
 

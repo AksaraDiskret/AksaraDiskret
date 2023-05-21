@@ -65,37 +65,34 @@ if (isset($_POST["change_pass"])) {
     <div class="app-container">
         <main>
             <div class="setting">
-
                 <a href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
                 <h1>Settings your account</h1>
             </div>
-            <form action="" method="post">
+            <form  method="post">
                 <h2>Change your email</h2>
-                <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address">
+                <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address" required>
                 <?php if (isset($warning_email)) : ?>
                     <?= $warning_email ?>
                 <?php endif; ?>
-                <button type="submit" name="change_email" class="rounded-box primary-btn" onclick="newEmail()">Change Email</button>
+                <button type="submit" name="change_email" class="rounded-box primary-btn">Change Email</button>
                 <hr>
+            </form>
+            <form  method="post">
                 <h2>Change your password</h2>
-
                 <div class="pass-box">
-                    <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password">
+                    <input type="password" name="old-password" class="rounded-box old-password" placeholder="Old Password" required>
                     <img id="h-old-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
                     <img id="s-old-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <div class="pass-box">
-                    <input type="password" name="new-password" class="rounded-box default-password" placeholder="Password" required>
+                    <input type="password" name="new-password" class="rounded-box default-password" placeholder="New Password" required>
                     <img id="h-default-pass" src="../assets/icon/remixicon-eye-line.svg" alt="Hide Password Icon">
                     <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
-                <button type="submit" name="change_pass" class="rounded-box primary-btn" onclick="changePassword()">Change Password</button>
-                <span class="success">
-                    <?php if (isset($warning_pass)) {
-                        echo $warning_pass;
-                    } ?>
-                </span>
-                <hr>
+                <button type="submit" name="change_pass" class="rounded-box primary-btn">Change Password</button>
+                <?php if (isset($warning_pass)) {
+                    echo $warning_pass;
+                } ?>
             </form>
         </main>
         <footer>

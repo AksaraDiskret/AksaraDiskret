@@ -116,7 +116,7 @@ h1 {
 }
 
 form {
-    min-width: 40%;
+    min-width: 100%;
     gap: 16px;
 }
 

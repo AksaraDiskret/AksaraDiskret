@@ -95,7 +95,7 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                     <span class="failed">Email Address or Password is invalid!</span>
                 <?php endif; ?>
                 <button type="submit" name="signin" class="rounded-box primary-btn">Sign In</button>
-                <p>Doesn't have an account? <a href="../signup" class="link">Sign up</a></p>
+                <p class="user-note">Doesn't have an account? <a href="../signup" class="link">Sign up</a></p>
             </form>
         </main>
         <footer>
