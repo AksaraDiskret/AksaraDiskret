@@ -50,12 +50,13 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"]) || isset($_COOK
             <h1>Frequently Asked Questions</h1>
             <div class="content">
                 <div class="item">
-                    <h2>what is a Aksara Diskret?</h2>
-                    <p>is a website that provides free electronic books.</p>
+                    <h2>Are book on this site is legal?</h2>
+                    <p>Yes, if the books are in the public domain or have permission from the author or publisher.
+                        Downloading copyrighted books without permission is illegal.</p>
                 </div>
                 <div class="item">
                     <h2>Can I find all types of books on this site?</h2>
-                    <p>We provide books in general and are not focused on a type.</p>
+                    <p>We provide books in general and don't stick to one type. but mostly about technology.</p>
                 </div>
                 <div class="item">
                     <h2>Are there any risks associated with downloading books from our site?</h2>
@@ -63,26 +64,9 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"]) || isset($_COOK
                     </p>
                 </div>
                 <div class="item">
-                    <h2>Is the book provided here original?</h2>
-                    <p>Some of the books we provide may be original.
-                    </p>
-                </div>
-                <div class="item">
-                    <h2>
-                        Do you provide pirated books?
-                    </h2>
-                    <p>Yes, it is possible that we provide pirated books. However, it is important to note that not everyone can afford to buy books.
-                    </p>
-                </div>
-                <div class="item">
-                    <h2>Are you willing to bear the consequences?</h2>
-                    <p>Yes, we must do so.
-                    </p>
-                </div>
-                <div class="item">
-                    <h2>What is your motivation for building this website?</h2>
+                    <h2>What is our motivation for building this website?</h2>
                     <p>
-                        with books, everyone has the right to dig and feel the depth of the well of knowledge. does not only apply to those who have material advantages.
+                        With books, everyone has the right to dig and feel the depth of the well of knowledge. does not only apply to those who have material advantages.
                     </p>
                 </div>
             </div>

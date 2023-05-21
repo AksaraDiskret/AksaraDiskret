@@ -115,6 +115,10 @@ h1 {
     font-weight: 900;
 }
 
+.primary-content h1 {
+    width: 23ch;
+}
+
 form {
     min-width: 100%;
     gap: 16px;
