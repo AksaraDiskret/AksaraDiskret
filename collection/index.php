@@ -48,7 +48,7 @@ if (isset($_COOKIE["secret"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <?php if (isset($_SESSION["signin"])) : ?>
+                <?php if (FeaturePrevilage()) : ?>
                     <li>
                         <a href="../admin">Admin</a>
                     </li>

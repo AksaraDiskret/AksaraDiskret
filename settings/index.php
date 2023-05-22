@@ -3,7 +3,7 @@ session_start();
 
 
 
-if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
+if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_COOKIE["signin"])) {
     header("Location: ../signin");
     exit;
 }
@@ -48,7 +48,7 @@ if (isset($_POST["change_pass"])) {
         <nav>
             <ul id="nav-list">
                 <li>
-                    <?php if (!isset($_SESSION["signinUser"])) : ?>
+                    <?php if (FeaturePrevilage()) : ?>
                         <a href="../admin">Admin</a>
                     <?php endif; ?>
                 </li>

@@ -23,6 +23,7 @@ function CheckingEmail($email)
     if (in_array($email, $email_in_User) || in_array($email, $email_in_Admin)) {
         return true;
     }
+    return false;
 }
 
 function addUser($data)
@@ -94,34 +95,27 @@ function Validation_signin($email, $pass)
 }
 
 
-
-function addNewEmailAfterChange($new_email, $id)
+function ChangeEmail($data)
 {
+    $new_email = htmlspecialchars($data["new_email"]);
     global $db;
+
+    if (isset($_SESSION["idUser"]) || isset($_SESSION["idAdmin"])) {
+        $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
+        $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
+    } else {
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "adminprivilege@mail.com"))) ? "admin" : "users";
+        $id = $_COOKIE["signin"];
+    }
+
     if (CheckingEmail($new_email)) {
         return '<span class="failed">Email address is already registered. Please use another email.</span>';
     }
 
-    mysqli_query($db, "UPDATE users SET email='$new_email' WHERE id = '$id'");
+    mysqli_query($db, "UPDATE $table SET email='$new_email' WHERE id = '$id'");
 
     if (mysqli_affected_rows($db) > 0) {
         return '<span class="success">Email Changed</span>';
-    }
-};
-
-function ChangeEmail($data)
-{
-    $new_email = htmlspecialchars($data["new_email"]);
-    if (isset($_SESSION["idUser"])) {
-        $id_User = $_SESSION["idUser"];
-    } else {
-        $id_Admin = $_SESSION["idAdmin"];
-    }
-
-    if (isset($id_Admin)) {
-        return addNewEmailAfterChange($new_email, $id_Admin);
-    } else {
-        return addNewEmailAfterChange($new_email, $id_User);
     }
 }
 
@@ -129,19 +123,36 @@ function ChangeEmail($data)
 function ChangePass($data)
 {
     global $db;
-    $id = $_SESSION["idUser"];
     $new_pass = $data["new-password"];
     $old_pass = $data["old-password"];
 
-    if (strlen($new_pass) < 8) {
 
+    if (strlen($new_pass) < 8) {
         return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
 
-    if (password_verify($new_pass, $old_pass)) {
+    if (isset($_SESSION["idUser"]) || isset($_SESSION["idAdmin"])) {
+        $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
+        $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
+    } else {
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "adminprivilege@mail.com"))) ? "admin" : "users";
+        $id = $_COOKIE["signin"];
+    }
+
+    $query = mysqli_query($db, "SELECT password FROM $table WHERE id = '$id'");
+    $passwoor_in_db = mysqli_fetch_assoc($query);
+    if (password_verify($old_pass, $passwoor_in_db["password"])) {
         $hashpassword = password_hash($new_pass, PASSWORD_DEFAULT);
-        mysqli_query($db, "UPDATE users SET password = '$hashpassword' WHERE id = '$id'");
+        mysqli_query($db, "UPDATE $table SET password = '$hashpassword' WHERE id = '$id'");
         return '<span class="success">Password changed.</span>';
     }
     return '<span class="failed">The password you entered is incorrect.</span>';
+}
+
+
+function FeaturePrevilage()
+{
+    return (isset($_SESSION["idAdmin"]) ||
+        hash_equals($_COOKIE["secret"], hash('sha512', "adminprivilege@mail.com"))
+    ) ? true : false;
 }
