@@ -48,7 +48,7 @@ if (isset($_COOKIE["secret"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <?php if (FeaturePrevilage()) : ?>
+                <?php if (FeaturePrivilege() || isset($_SESSION["idAdmin"])) : ?>
                     <li>
                         <a href="../admin">Admin</a>
                     </li>
@@ -73,7 +73,7 @@ if (isset($_COOKIE["secret"])) {
                                 <?= $_SESSION["USERNAME"] ?>
                             </span>
                         <?php else : ?>
-                            <span id="user">Araska Terksid</span>
+                            <span id="user">Aksara Diskret</span>
                         <?php endif; ?>
                         <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                     </div>

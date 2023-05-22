@@ -95,6 +95,7 @@ function Validation_signin($email, $pass)
 }
 
 
+
 function ChangeEmail($data)
 {
     $new_email = htmlspecialchars($data["new_email"]);
@@ -104,8 +105,11 @@ function ChangeEmail($data)
         $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
         $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
     } else {
-        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "adminprivilege@mail.com"))) ? "admin" : "users";
         $id = $_COOKIE["signin"];
+        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        $email_admin = mysqli_fetch_assoc($data);
+        $email = $email_admin["email"];
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", $email))) ? "admin" : "users";
     }
 
     if (CheckingEmail($new_email)) {
@@ -135,8 +139,11 @@ function ChangePass($data)
         $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
         $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
     } else {
-        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "adminprivilege@mail.com"))) ? "admin" : "users";
         $id = $_COOKIE["signin"];
+        $data_email = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        $email_admin = mysqli_fetch_assoc($data_email);
+        $email = $email_admin["email"];
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "$email"))) ? "admin" : "users";
     }
 
     $query = mysqli_query($db, "SELECT password FROM $table WHERE id = '$id'");
@@ -150,9 +157,18 @@ function ChangePass($data)
 }
 
 
-function FeaturePrevilage()
+function FeaturePrivilege()
 {
-    return (isset($_SESSION["idAdmin"]) ||
-        hash_equals($_COOKIE["secret"], hash('sha512', "adminprivilege@mail.com"))
-    ) ? true : false;
+    global $db;
+
+    if (isset($_COOKIE["signin"])) {
+        $id = $_COOKIE["signin"];
+        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        $email_admin = mysqli_fetch_assoc($data);
+        $email = $email_admin["email"];
+
+        return (isset($_SESSION["idAdmin"]) ||
+            hash_equals($_COOKIE["secret"], hash('sha512', "$email"))
+        ) ? true : false;
+    }
 }
