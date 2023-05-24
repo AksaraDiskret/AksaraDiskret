@@ -4,11 +4,9 @@ function rowData($que)
 {
     $rows = [];
     while ($row = mysqli_fetch_assoc($que)) {
-        foreach ($row as $r) {
-            $rows[] = $r;
-        }
+        $rows[] = $row;
     }
-    return $rows;
+    return $rows[0];
 }
 
 
@@ -75,18 +73,21 @@ function Validation_signin($email, $pass)
     }
     if (mysqli_num_rows($result_users) >= 1) {
         $row_users = rowData($result_users);
-        if (password_verify($pass, $row_users[4])) {
+        if (password_verify($pass, $row_users["password"])) {
             $_SESSION["signinUser"] = true;
         } else {
             return true;
         }
         if (isset($_POST['remember-me'])) {
-            setcookie('signin', $row_users[0], time() + 60, '/');
-            setcookie('secret', hash('sha512', $row_users[3]), time() + 60, '/');
+            setcookie('signin', $row_users["id"], time() + 60, '/');
+            setcookie('secret', hash('sha512', $row_users["email"]), time() + 60, '/');
         }
         // The username will be taken from here when the new user logs in for the first time
-        $_SESSION["USERNAME"] = "$row_users[1] $row_users[2]";
-        $_SESSION["idUser"] = $row_users[0];
+        $first_name = $row_users['first_name'];
+        $last_name = $row_users['last_name'];
+
+        $_SESSION["USERNAME"] = "$first_name $last_name";
+        $_SESSION["idUser"] = $row_users['id'];
         header("Location: ../collection");
         exit;
     }
@@ -131,6 +132,8 @@ function ChangePass($data)
     $old_pass = $data["old-password"];
 
 
+    if ($new_pass === $old_pass) return "<span class='failed'>Enter new password!</span>";
+
     if (strlen($new_pass) < 8) {
         return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
@@ -160,15 +163,19 @@ function ChangePass($data)
 function FeaturePrivilege()
 {
     global $db;
-
     if (isset($_COOKIE["signin"])) {
         $id = $_COOKIE["signin"];
+        $email = $_COOKIE["secret"];
         $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
-        $email_admin = mysqli_fetch_assoc($data);
-        $email = $email_admin["email"];
+        if (isset($data)) {
+            $email_admin = mysqli_fetch_assoc($data);
+            if (isset($email_admin)) {
 
-        return (isset($_SESSION["idAdmin"]) ||
-            hash_equals($_COOKIE["secret"], hash('sha512', "$email"))
-        ) ? true : false;
+                if (hash_equals($email, hash('sha512', $email_admin['email']))) {
+                    return true;
+                }
+            }
+        }
     }
+    return false;
 }

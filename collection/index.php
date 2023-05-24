@@ -22,6 +22,8 @@ if (isset($_COOKIE["secret"])) {
     }
 }
 
+$_SESSION["signin"] = true;
+$_SESSION["signinUser"] = true;
 
 ?>
 <!DOCTYPE html>
