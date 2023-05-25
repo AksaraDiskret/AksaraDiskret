@@ -17,10 +17,8 @@ Welcome to the official **AD** documentation. This documentation contains everyt
 
 To use admin rights, please use the account provided below :
 
-|-------------------------------|--------------------|
 |         Email Address         |      Password      |
 |-------------------------------|--------------------|
 |```admin@aksaradiskret.cloud```|```Y0u4123n0wAd-!```|
-|-------------------------------|--------------------|
 
 Thank you for visiting. Greetings from the AD team.
