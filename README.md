@@ -15,10 +15,12 @@ Welcome to the official **AD** documentation. This documentation contains everyt
 
 ## Admin Access 🔐
 
-To use admin access rights, please use the account provided below :
+To use admin rights, please use the account provided below :
 
-Email Address|Password
--|-
-```adminprivilege@mail.com```|```admin1$4dm1n```
+|-------------------------------|--------------------|
+|         Email Address         |      Password      |
+|-------------------------------|--------------------|
+|```admin@aksaradiskret.cloud```|```Y0u4123n0wAd-!```|
+|-------------------------------|--------------------|
 
 Thank you for visiting. Greetings from the AD team.
