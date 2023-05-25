@@ -22,6 +22,9 @@ if (isset($_COOKIE["secret"])) {
     }
 }
 
+$_SESSION["signin"] = true;
+$_SESSION["signinUser"] = true;
+
 $result = mysqli_query($db, "SELECT * FROM books");
 
 ?>
@@ -49,7 +52,7 @@ $result = mysqli_query($db, "SELECT * FROM books");
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <?php if (isset($_SESSION["signin"])) : ?>
+                <?php if (FeaturePrivilege() || isset($_SESSION["idAdmin"])) : ?>
                     <li>
                         <a href="../admin">Admin</a>
                     </li>

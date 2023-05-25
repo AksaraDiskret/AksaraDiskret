@@ -3,7 +3,7 @@ session_start();
 
 
 
-if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"])) {
+if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_COOKIE["signin"])) {
     header("Location: ../signin");
     exit;
 }
@@ -47,11 +47,13 @@ if (isset($_POST["change_pass"])) {
         <a href="../"><img src="../assets/icon/ad-logo.svg" alt="Aksara Diskret Logo"></a>
         <nav>
             <ul id="nav-list">
-                <li>
-                    <?php if (!isset($_SESSION["signinUser"])) : ?>
+
+                <?php if (FeaturePrivilege() || isset($_SESSION["idAdmin"])) : ?>
+                    <li>
                         <a href="../admin">Admin</a>
-                    <?php endif; ?>
-                </li>
+                    </li>
+                <?php endif; ?>
+
                 <li><a href="../faq">FAQ</a></li>
                 <li><a href="../about">About</a></li>
             </ul>

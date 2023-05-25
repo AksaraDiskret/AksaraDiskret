@@ -3,12 +3,10 @@ $db = mysqli_connect("localhost", "root", "", "aksara_diskret");
 function rowData($var)
 {
     $rows = [];
-    while ($row = mysqli_fetch_assoc($var)) {
-        foreach ($row as $r) {
-            $rows[] = $r;
-        }
+    while ($row = mysqli_fetch_assoc($que)) {
+        $rows[] = $row;
     }
-    return $rows;
+    return $rows[0];
 }
 
 
@@ -23,6 +21,7 @@ function CheckingEmail($email)
     if (in_array($email, $email_in_User) || in_array($email, $email_in_Admin)) {
         return true;
     }
+    return false;
 }
 
 function CheckingBook($isbn)
@@ -145,18 +144,21 @@ function Validation_signin($email, $pass)
     }
     if (mysqli_num_rows($result_users) >= 1) {
         $row_users = rowData($result_users);
-        if (password_verify($pass, $row_users[4])) {
+        if (password_verify($pass, $row_users["password"])) {
             $_SESSION["signinUser"] = true;
         } else {
             return true;
         }
         if (isset($_POST['remember-me'])) {
-            setcookie('signin', $row_users[0], time() + 60, '/');
-            setcookie('secret', hash('sha512', $row_users[3]), time() + 60, '/');
+            setcookie('signin', $row_users["id"], time() + 60, '/');
+            setcookie('secret', hash('sha512', $row_users["email"]), time() + 60, '/');
         }
         // The username will be taken from here when the new user logs in for the first time
-        $_SESSION["USERNAME"] = "$row_users[1] $row_users[2]";
-        $_SESSION["idUser"] = $row_users[0];
+        $first_name = $row_users['first_name'];
+        $last_name = $row_users['last_name'];
+
+        $_SESSION["USERNAME"] = "$first_name $last_name";
+        $_SESSION["idUser"] = $row_users['id'];
         header("Location: ../collection");
         exit;
     }
@@ -166,33 +168,30 @@ function Validation_signin($email, $pass)
 
 
 
-function addNewEmailAfterChange($new_email, $id)
+function ChangeEmail($data)
 {
+    $new_email = htmlspecialchars($data["new_email"]);
     global $db;
+
+    if (isset($_SESSION["idUser"]) || isset($_SESSION["idAdmin"])) {
+        $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
+        $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
+    } else {
+        $id = $_COOKIE["signin"];
+        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        $email_admin = mysqli_fetch_assoc($data);
+        $email = $email_admin["email"];
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", $email))) ? "admin" : "users";
+    }
+
     if (CheckingEmail($new_email)) {
         return '<span class="failed">Email address is already registered. Please use another email.</span>';
     }
 
-    mysqli_query($db, "UPDATE users SET email='$new_email' WHERE id = '$id'");
+    mysqli_query($db, "UPDATE $table SET email='$new_email' WHERE id = '$id'");
 
     if (mysqli_affected_rows($db) > 0) {
         return '<span class="success">Email Changed</span>';
-    }
-};
-
-function ChangeEmail($data)
-{
-    $new_email = htmlspecialchars($data["new_email"]);
-    if (isset($_SESSION["idUser"])) {
-        $id_User = $_SESSION["idUser"];
-    } else {
-        $id_Admin = $_SESSION["idAdmin"];
-    }
-
-    if (isset($id_Admin)) {
-        return addNewEmailAfterChange($new_email, $id_Admin);
-    } else {
-        return addNewEmailAfterChange($new_email, $id_User);
     }
 }
 
@@ -200,19 +199,54 @@ function ChangeEmail($data)
 function ChangePass($data)
 {
     global $db;
-    $id = $_SESSION["idUser"];
     $new_pass = $data["new-password"];
     $old_pass = $data["old-password"];
 
-    if (strlen($new_pass) < 8) {
 
+    if ($new_pass === $old_pass) return "<span class='failed'>Enter new password!</span>";
+
+    if (strlen($new_pass) < 8) {
         return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
 
-    if (password_verify($new_pass, $old_pass)) {
+    if (isset($_SESSION["idUser"]) || isset($_SESSION["idAdmin"])) {
+        $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
+        $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
+    } else {
+        $id = $_COOKIE["signin"];
+        $data_email = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        $email_admin = mysqli_fetch_assoc($data_email);
+        $email = $email_admin["email"];
+        $table = (hash_equals($_COOKIE["secret"], hash("sha512", "$email"))) ? "admin" : "users";
+    }
+
+    $query = mysqli_query($db, "SELECT password FROM $table WHERE id = '$id'");
+    $passwoor_in_db = mysqli_fetch_assoc($query);
+    if (password_verify($old_pass, $passwoor_in_db["password"])) {
         $hashpassword = password_hash($new_pass, PASSWORD_DEFAULT);
-        mysqli_query($db, "UPDATE users SET password = '$hashpassword' WHERE id = '$id'");
+        mysqli_query($db, "UPDATE $table SET password = '$hashpassword' WHERE id = '$id'");
         return '<span class="success">Password changed.</span>';
     }
     return '<span class="failed">The password you entered is incorrect.</span>';
+}
+
+
+function FeaturePrivilege()
+{
+    global $db;
+    if (isset($_COOKIE["signin"])) {
+        $id = $_COOKIE["signin"];
+        $email = $_COOKIE["secret"];
+        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
+        if (isset($data)) {
+            $email_admin = mysqli_fetch_assoc($data);
+            if (isset($email_admin)) {
+
+                if (hash_equals($email, hash('sha512', $email_admin['email']))) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
