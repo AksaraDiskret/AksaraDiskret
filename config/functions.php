@@ -3,7 +3,7 @@ $db = mysqli_connect("localhost", "root", "", "aksara_diskret");
 function rowData($var)
 {
     $rows = [];
-    while ($row = mysqli_fetch_assoc($que)) {
+    while ($row = mysqli_fetch_assoc($var)) {
         $rows[] = $row;
     }
     return $rows[0];
