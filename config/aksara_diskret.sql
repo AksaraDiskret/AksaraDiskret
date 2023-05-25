@@ -1,66 +1,126 @@
-/*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.24-MariaDB : Database - aksara_diskret
-*********************************************************************
-*/
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 25, 2023 at 12:53 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
-/*!40101 SET NAMES utf8 */;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-/*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`aksara_diskret` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-USE `aksara_diskret`;
+--
+-- Database: `aksara_diskret`
+--
 
-/*Table structure for table `admin` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `admin`;
+--
+-- Table structure for table `admin`
+--
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `email` varchar(80) NOT NULL,
-  `password` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `password` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `admin` */
+--
+-- Dumping data for table `admin`
+--
 
-LOCK TABLES `admin` WRITE;
+INSERT INTO `admin` (`id`, `email`, `password`) VALUES
+(1, 'admin@aksaradiskret.cloud', '$2y$10$Nsrx2qbphr2FcoCOYQ4oJuX304IikDfQjUZhbr1pLPz2O/tI/Te2O');
 
-insert  into `admin`(`id`,`email`,`password`) values 
-(1,'adminprivilege@mail.com','$2a$12$2b8uiUy9MaEC58WX7Bv6Xu37soPa7ZkhFhGOfSVjRZLqFOtG33Q8e');
+-- --------------------------------------------------------
 
-UNLOCK TABLES;
+--
+-- Table structure for table `books`
+--
 
-/*Table structure for table `users` */
+CREATE TABLE `books` (
+  `cover` varchar(99) NOT NULL,
+  `book` varchar(99) NOT NULL,
+  `isbn` bigint(13) NOT NULL,
+  `title` varchar(99) NOT NULL,
+  `author` varchar(99) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `users`;
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`cover`, `book`, `isbn`, `title`, `author`) VALUES
+('1685004756-deepmind-mWztzk66I7Q-unsplash.jpg', '1685004756-AD-Secret-Book.pdf', 9780258222782, 'Singularity Paradox', 'Olivia Chen'),
+('1685004817-deepmind-3VSgApkySLA-unsplash.jpg', '1685004817-AD-Secret-Book.pdf', 9782335341133, 'AI Rebellion', 'Ethan Zhang'),
+('1685004872-wilhelm-gunkel-aEECAd2HuUE-unsplash.jpg', '1685004872-AD-Secret-Book.pdf', 9782463696112, 'The Glass House', 'Jane Sanchez'),
+('1685005475-erol-ahmed-5nFU8l0RDiY-unsplash.jpg', '1685005475-AD-Secret-Book.pdf', 9783127757644, 'The Hidden City', 'Carlos Rodriguez'),
+('1685004914-mk-s-_j0Wjh0Ya8I-unsplash.jpg', '1685004914-AD-Secret-Book.pdf', 9785240080548, 'Designing Realities', 'Kevin Chen'),
+('1685004946-ivan-aleksic-FoYLV60_eHY-unsplash.jpg', '1685004946-AD-Secret-Book.pdf', 9785862813142, 'Blueprint for Chaos', 'Matthew Davis'),
+('1685004689-deepmind-X5CSjHTjlgw-unsplash.jpg', '1685004689-AD-Secret-Book.pdf', 9786011789073, 'Neural Network', 'Andrew Kim'),
+('1685004600-deepmind-esyG2Jt_uIc-unsplash.jpg', '1685004600-AD-Secret-Book.pdf', 9787825426666, 'Learning Algorithm', 'Karen Liu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `users` */
+--
+-- Indexes for dumped tables
+--
 
-LOCK TABLES `users` WRITE;
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
 
-insert  into `users`(`id`,`first_name`,`last_name`,`email`,`password`) values 
-(1,'farhan','sunge','farhanSunge12@gmail.com','$2y$10$iHSzgvVamjUawkdwzSe9uexDYMfXdwiOnpLJiwzQGCj.OGI2RZyL2'),
-(5,'Haikal','Takapesi','Haikal123@gmail.com','$2y$10$RxVk61DkvW8YB8n1QZTEb.sJ0QSQjgdeGj5KMKIj/e/.wa6.T2wWS'),
-(7,'rizky','saria','mrizkisaria002@gmail.com','$2y$10$vkosR2Z0GNrpW3dWcoZcOetI/eYZo0GzPxsZSAIxJTB9KOuELntoC');
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`isbn`);
 
-UNLOCK TABLES;
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

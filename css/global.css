@@ -44,7 +44,11 @@ form {
 
 #first-name,
 #last-name,
-#user {
+#user,
+input[name="title"],
+input[name="author"],
+.books-info h2,
+.books-info p {
     text-transform: capitalize;
 }
 
@@ -97,6 +101,10 @@ a:hover {
 
 nav ul {
     list-style: none;
+}
+
+nav a{
+    text-decoration: none;
 }
 
 #nav-icon {

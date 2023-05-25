@@ -5,6 +5,10 @@ main {
     gap: 32px;
 }
 
+h1 {
+    text-align: center;
+}
+
 .user-note {
     text-align: center;
 }

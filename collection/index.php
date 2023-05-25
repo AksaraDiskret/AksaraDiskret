@@ -22,6 +22,7 @@ if (isset($_COOKIE["secret"])) {
     }
 }
 
+$result = mysqli_query($db, "SELECT * FROM books");
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +74,7 @@ if (isset($_COOKIE["secret"])) {
                                 <?= $_SESSION["USERNAME"] ?>
                             </span>
                         <?php else : ?>
-                            <span id="user">Araska Terksid</span>
+                            <span id="user">ADMIN</span>
                         <?php endif; ?>
                         <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                     </div>
@@ -83,86 +84,18 @@ if (isset($_COOKIE["secret"])) {
             <hr>
             <h1>Books Collection</h1>
             <div class="books-content">
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/deepmind-esyG2Jt_uIc-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>Learning Algorithm</h2>
-                            <p>Karen Liu</p>
+                <?php while ($books = mysqli_fetch_assoc($result)) : ?>
+                    <a href="<?= "../assets/books/" . $books["book"] ?>" class="rounded-box books-item" download>
+                        <div class="book">
+                            <img src="<?= "../assets/image/" . $books["cover"] ?>" alt="Book Cover">
+                            <div class="books-info">
+                                <h2><?= $books["title"] ?></h2>
+                                <p><?= $books["author"] ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9787825426666</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/deepmind-X5CSjHTjlgw-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>Neural Network</h2>
-                            <p>Andrew Kim</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9786011789073</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/deepmind-mWztzk66I7Q-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>Singularity Paradox</h2>
-                            <p>Olivia Chen</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9780258222782</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/deepmind-3VSgApkySLA-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>AI Rebellion</h2>
-                            <p>Ethan Zhang</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9782335341133</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/wilhelm-gunkel-aEECAd2HuUE-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>The Glass House</h2>
-                            <p>Jane Sanchez</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9782463696112</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/mk-s-_j0Wjh0Ya8I-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>Designing Realities</h2>
-                            <p>Kevin Chen</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9785240080548</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/ivan-aleksic-FoYLV60_eHY-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>Blueprint for Chaos</h2>
-                            <p>Matthew Davis</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9785862813142</div>
-                </a>
-                <a href="../assets/book/AD-Secret-Book.pdf" class="rounded-box books-item" download>
-                    <div class="book">
-                        <img src="../assets/image/erol-ahmed-5nFU8l0RDiY-unsplash.jpg" alt="Book Cover">
-                        <div class="books-info">
-                            <h2>The Hidden City </h2>
-                            <p>Carlos Rodriguez</p>
-                        </div>
-                    </div>
-                    <div class="isbn"><b>ISBN</b><br>9782463696112</div>
-                </a>
+                        <div class="isbn"><b>ISBN</b><br><?= $books["isbn"] ?></div>
+                    </a>
+                <?php endwhile; ?>
             </div>
         </main>
         <footer>
