@@ -6,7 +6,7 @@ function rowData($var)
     while ($row = mysqli_fetch_assoc($var)) {
         $rows[] = $row;
     }
-    return $rows[0];
+    return $rows;
 }
 function rowData2($var)
 {
@@ -19,6 +19,33 @@ function rowData2($var)
     return $rows;
 }
 
+function checkCookie()
+{
+    global $db;
+    $data_users = mysqli_query($db, "SELECT email FROM users");
+    $data_admin = mysqli_query($db, "SELECT email FROM admin");
+
+    if (isset($_COOKIE["secret"]) && isset($_COOKIE["signin"])) {
+        $data1 = rowData2($data_users);
+        foreach ($data1 as $data) {
+            if (hash_equals($_COOKIE["secret"], hash('sha512', $data))) {
+                $email_user = $data;
+                $id_user = mysqli_query($db, "SELECT id FROM users WHERE email = '$email_user'");
+                $_SESSION["idUser"] = mysqli_fetch_assoc($id_user)["id"];
+                $_SESSION["signinUser"] = true;
+            }
+        }
+        $data2 = rowData2($data_admin);
+        foreach ($data2 as $data) {
+            if (hash_equals($_COOKIE["secret"], hash('sha512', $data))) {
+                $email_admin = $data;
+                $id_admin = mysqli_query($db, "SELECT id FROM users WHERE email = '$email_admin'");
+                $_SESSION["idAdmin"] = mysqli_fetch_assoc($id_admin)["id"];
+                $_SESSION["signin"] = true;
+            }
+        }
+    }
+}
 
 function CheckingEmail($email)
 {
@@ -27,9 +54,7 @@ function CheckingEmail($email)
     $result = mysqli_query($db, "SELECT email FROM users");
     $result_user = mysqli_query($db, "SELECT email FROM admin");
     $email_in_User = rowData2($result);
-    var_dump($email_in_User);
     $email_in_Admin = rowData2($result_user);
-    var_dump($email_in_Admin);
     if (in_array($email, $email_in_User) || in_array($email, $email_in_Admin)) {
         return true;
     }
@@ -41,13 +66,9 @@ function CheckingBook($isbn)
     global $db;
 
     $result = mysqli_query($db, "SELECT isbn FROM books WHERE isbn = '$isbn'");
-    $isAdd = rowData($result);
+    $isAdd = rowData($result)[0];
 
-    if (!$isAdd) {
-        return false;
-    } else {
-        return true;
-    }
+    return (!$isAdd) ? false : true;
 }
 
 function addUser($data)
@@ -155,7 +176,7 @@ function Validation_signin($email, $pass)
         exit;
     }
     if (mysqli_num_rows($result_users) >= 1) {
-        $row_users = rowData($result_users);
+        $row_users = rowData($result_users)[0];
         if (password_verify($pass, $row_users["password"])) {
             $_SESSION["signinUser"] = true;
         } else {
@@ -188,12 +209,6 @@ function ChangeEmail($data)
     if (isset($_SESSION["idUser"]) || isset($_SESSION["idAdmin"])) {
         $table = (isset($_SESSION["idAdmin"])) ? "admin" : "users";
         $id = ($table === "users") ? $_SESSION["idUser"] : $_SESSION["idAdmin"];
-    } else {
-        $id = $_COOKIE["signin"];
-        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
-        $email_admin = mysqli_fetch_assoc($data);
-        $email = $email_admin["email"];
-        $table = (hash_equals($_COOKIE["secret"], hash("sha512", $email))) ? "admin" : "users";
     }
 
     if (CheckingEmail($new_email)) {

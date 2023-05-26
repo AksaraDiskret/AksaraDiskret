@@ -8,22 +8,17 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_C
     exit;
 }
 
+checkCookie();
+
 // retrieve the username with these conditions when the browser is closed then opened again
 
-if (isset($_COOKIE["secret"])) {
-
-
-    $signin = $_COOKIE["signin"];
-    $data = mysqli_query($db, "SELECT * FROM admin WHERE id = $signin");
-    if (mysqli_affected_rows($db) === 0) {
-        $hasil = mysqli_query($db, "SELECT CONCAT(first_name, ' ' ,last_name) AS USERNAME FROM users WHERE id = $signin");
-        $row = mysqli_fetch_assoc($hasil);
-        $_SESSION["USERNAME"] = $row["USERNAME"];
-    }
+if (isset($_SESSION["idUser"])) {
+    $idusername = $_SESSION["idUser"];
+    $hasil = mysqli_query($db, "SELECT CONCAT(first_name, ' ' ,last_name) AS USERNAME FROM users WHERE id = '$idusername'");
+    $row = mysqli_fetch_assoc($hasil);
+    $_SESSION["USERNAME"] = $row["USERNAME"];
 }
 
-$_SESSION["signin"] = true;
-$_SESSION["signinUser"] = true;
 
 $result = mysqli_query($db, "SELECT * FROM books");
 
