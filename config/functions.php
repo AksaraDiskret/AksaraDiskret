@@ -260,5 +260,5 @@ function ChangePass($data)
 
 function FeaturePrivilege()
 {
-    return ($_SESSION["signin"]) ? true : false;
+    return (isset($_SESSION["signin"])) ? true : false;
 }
