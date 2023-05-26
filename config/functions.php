@@ -118,17 +118,17 @@ function delBook($data)
 
     if (strlen($isbn) != 13) {
         return '<span class="failed">ISBN must be 13 digits.</span>';
+    } elseif (!CheckingBook($isbn)) {
+        return '<span class="failed">ISBN is not found or has been deleted.</span>';
     } else {
         $result = mysqli_query($db, "SELECT cover, book from books WHERE isbn = '$isbn'");
         $fileName = mysqli_fetch_assoc($result);
-
         if (file_exists('../assets/image/' . $fileName["cover"]) || file_exists('../assets/books/' . $fileName["book"])) {
             unlink('../assets/image/' . $fileName["cover"]);
             unlink('../assets/books/' . $fileName["book"]);
+        } else {
             mysqli_query($db, "DELETE FROM books WHERE isbn = $isbn");
             return '<span class="success">Book is deleted.</span>';
-        } else {
-            return '<span class="failed">ISBN is not found or has been deleted.</span>';
         }
     }
 }
