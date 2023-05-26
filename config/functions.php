@@ -39,7 +39,7 @@ function checkCookie()
         foreach ($data2 as $data) {
             if (hash_equals($_COOKIE["secret"], hash('sha512', $data))) {
                 $email_admin = $data;
-                $id_admin = mysqli_query($db, "SELECT id FROM users WHERE email = '$email_admin'");
+                $id_admin = mysqli_query($db, "SELECT id FROM admin WHERE email = '$email_admin'");
                 $_SESSION["idAdmin"] = mysqli_fetch_assoc($id_admin)["id"];
                 $_SESSION["signin"] = true;
             }
@@ -260,20 +260,5 @@ function ChangePass($data)
 
 function FeaturePrivilege()
 {
-    global $db;
-    if (isset($_COOKIE["signin"])) {
-        $id = $_COOKIE["signin"];
-        $email = $_COOKIE["secret"];
-        $data = mysqli_query($db, "SELECT email FROM admin WHERE id='$id'");
-        if (isset($data)) {
-            $email_admin = mysqli_fetch_assoc($data);
-            if (isset($email_admin)) {
-
-                if (hash_equals($email, hash('sha512', $email_admin['email']))) {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
+    return ($_SESSION["signin"]) ? true : false;
 }
