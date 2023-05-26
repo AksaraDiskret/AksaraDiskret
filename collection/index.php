@@ -8,6 +8,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_C
     exit;
 }
 
+// when set cookie we repeat make sesssion
 checkCookie();
 
 // retrieve the username with these conditions when the browser is closed then opened again
