@@ -8,6 +8,16 @@ function rowData($var)
     }
     return $rows[0];
 }
+function rowData2($var)
+{
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($var)) {
+        foreach ($row as $r) {
+            $rows[] = $r;
+        }
+    }
+    return $rows;
+}
 
 
 function CheckingEmail($email)
@@ -16,8 +26,10 @@ function CheckingEmail($email)
     // mengecek apakah email sudah terdaftar atau belum
     $result = mysqli_query($db, "SELECT email FROM users");
     $result_user = mysqli_query($db, "SELECT email FROM admin");
-    $email_in_User = rowData($result);
-    $email_in_Admin = rowData($result_user);
+    $email_in_User = rowData2($result);
+    var_dump($email_in_User);
+    $email_in_Admin = rowData2($result_user);
+    var_dump($email_in_Admin);
     if (in_array($email, $email_in_User) || in_array($email, $email_in_Admin)) {
         return true;
     }
