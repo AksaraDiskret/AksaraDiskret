@@ -3,10 +3,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-    input {
-        font-size: 14px;
-    }
-
     header {
         padding: var(--spacing) 24px;
     }
@@ -53,15 +49,6 @@
     .app-container {
         padding: var(--spacing) 24px;
     }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .primary-content p,
-    h2 {
-        font-size: 16px;
-    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -78,19 +65,11 @@
     }
 
     h1 {
-        font-size: 20px;
-    }
-
-    .primary-content h1 {
-        width: 23ch;
-    }
-
-    .primary-content p {
-        font-size: 12px;
+        font-size: 24px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 
@@ -108,11 +87,7 @@
     }
 
     h1 {
-        font-size: 24px;
-    }
-
-    .primary-content p {
-        font-size: 16px;
+        font-size: 32px;
     }
 }
 
@@ -130,15 +105,11 @@
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 40px;
     }
 }
 
 @media only screen and (min-width: 1200px) {
-    form {
-        min-width: 60%;
-    }
-
     nav ul {
         gap: 186px;
     }
@@ -152,6 +123,6 @@
     }
 
     h1 {
-        font-size: 40px;
+        font-size: 48px;
     }
 }

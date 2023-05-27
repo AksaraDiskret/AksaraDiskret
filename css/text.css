@@ -23,7 +23,6 @@ main {
 
 .item {
     width: 100%;
-    gap: 8px;
 }
 
 .item li {
@@ -67,14 +66,6 @@ main {
 
     .content {
         gap: 32px;
-    }
-
-    .content p {
-        font-size: 14px;
-    }
-
-    .item {
-        gap: 4px;
     }
 }
 

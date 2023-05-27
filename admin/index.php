@@ -69,12 +69,12 @@ if (isset($_POST["delete"])) {
     <div class="app-container">
         <main>
             <a class="back" href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
-            <h1>Aksara Diskret Admin Area</h1>
+            <h1>Admin Area</h1>
             <form class="admin" method="post" enctype="multipart/form-data">
                 <h2>Upload or Edit a book</h2>
-                <p>Cover, minimum size 3000 x 2000 pixel or 3:2 aspect ratio :</p>
+                <p>Cover image (<b>png, jpg,</b> & <b>jpeg</b>) max size <b>24MB</b> & min resolution <b>2000</b> x <b>3000</b> pixels or <b>2:3</b> aspect ratio :</p>
                 <input name="cover" type="file" class="rounded-box" accept="image/png, image/jpeg" required>
-                <p>File, only accept PDF file :</p>
+                <p>Book file (<b>pdf</b>) max size <b>720MB</b> :</p>
                 <input name="book" type="file" class="rounded-box" accept="application/pdf" required>
                 <input name="isbn" type="number" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
                 <input name="title" type="text" id="book-title" class="rounded-box" placeholder="Title" required>
@@ -90,10 +90,10 @@ if (isset($_POST["delete"])) {
                     <label for="action-confirm">I am fully responsible for the book that I upload from any unwanted
                         things that might happen later.</label>
                 </div>
-                <button name="action" type="submit" id="action-btn" class="rounded-box primary-btn" disabled>Confirm Action</button>
                 <?php if (isset($Warning)) {
                     echo $Warning;
                 } ?>
+                <button name="action" type="submit" id="action-btn" class="rounded-box primary-btn" disabled>Confirm Action</button>
                 <hr>
             </form>
             <form class="admin" method="post">
@@ -103,10 +103,10 @@ if (isset($_POST["delete"])) {
                     <input type="checkbox" id="delete-confirm" onclick="deleteConfirm()">
                     <label for="delete-confirm">Confirm to delete the book.</label>
                 </div>
-                <button name="delete" type="submit" id="delete-btn" class="rounded-box primary-btn" disabled>Delete Book</button>
                 <?php if (isset($Warning_del)) {
                     echo $Warning_del;
                 } ?>
+                <button name="delete" type="submit" id="delete-btn" class="rounded-box primary-btn" disabled>Delete Book</button>
             </form>
         </main>
         <footer>

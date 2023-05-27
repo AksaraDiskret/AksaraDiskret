@@ -5,11 +5,8 @@ main {
     gap: 32px;
 }
 
+.user-note,
 h1 {
-    text-align: center;
-}
-
-.user-note {
     text-align: center;
 }
 
@@ -50,5 +47,14 @@ h1 {
 @media only screen and (max-width: 600px) {
     main {
         flex-direction: column;
+        text-align: left;
+    }
+
+    select~.check-box {
+        align-items: flex-start;
+    }
+
+    label[for="action-confirm"] {
+        margin-top: -4px;
     }
 }

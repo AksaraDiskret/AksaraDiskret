@@ -18,7 +18,8 @@ main {
     margin-top: 8px;
 }
 
-.data {
+.data,
+h1 {
     text-align: left;
 }
 
@@ -107,10 +108,6 @@ a[href="../settings"] {
 
     h2 {
         font-size: 20px;
-    }
-
-    .books-item p {
-        font-size: 16px;
     }
 }
 

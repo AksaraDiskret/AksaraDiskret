@@ -103,7 +103,7 @@ nav ul {
     list-style: none;
 }
 
-nav a{
+nav a {
     text-decoration: none;
 }
 
@@ -113,7 +113,7 @@ nav a{
 
 main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
     place-content: center;
     align-items: center;
     min-height: 100vh;
@@ -124,8 +124,11 @@ h1 {
     font-weight: 900;
 }
 
+h2 {
+    margin-bottom: 8px;
+}
+
 form {
-    min-width: 100%;
     gap: 16px;
 }
 

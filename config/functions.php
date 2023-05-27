@@ -105,55 +105,70 @@ function addBook($data)
     $title = htmlspecialchars($data["title"]);
     $author = htmlspecialchars($data["author"]);
 
-    if (strlen($isbn) != 13) {
-        return '<span class="failed">ISBN must be 13 digits.</span>';
+    if (!ctype_digit($isbn) || strlen($isbn) != 13) {
+        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
     } elseif (CheckingBook($isbn)) {
         return '<span class="failed">Book is already uploaded using this ISBN.</span>';
     } else {
-        $fileName = uploadEdit();
-        $cover = $fileName['cover'];
-        $book = $fileName['book'];
-        mysqli_query($db, "INSERT INTO books VALUES ('$cover','$book','$isbn','$title','$author')");
-        return '<span class="success">Book is uploaded.</span>';
+        if ($_FILES['cover']['error'] || $_FILES['book']['error'] === 4) {
+            return '<span class="failed">Please choose a files.</span>';
+        } elseif (is_uploaded_file($_FILES['cover']['tmp_name']) || is_uploaded_file($_FILES['book']['tmp_name'])) {
+            $mimeTypeCover = mime_content_type($_FILES['cover']['tmp_name']);
+            $mimeTypeBook = mime_content_type($_FILES['book']['tmp_name']);
+            $fileTypesCover = ['image/png', 'image/jpg', 'image/jpeg'];
+            $fileTypesBook = ['application/pdf'];
+
+            if (!in_array($mimeTypeCover, $fileTypesCover) || !in_array($mimeTypeBook, $fileTypesBook)) {
+                return '<span class="failed">Not a supported files type.</span>';
+            } else {
+                $fileName = uploadBook();
+                $cover = $fileName['cover'];
+                $book = $fileName['book'];
+                mysqli_query($db, "INSERT INTO books VALUES ('$cover','$book','$isbn','$title','$author')");
+                return '<span class="success">Book is uploaded.</span>';
+            }
+        }
     }
 }
 
-function uploadEdit()
+function uploadBook()
 {
-    $fileNameCover = $_FILES['cover']['name'];
-    $tmpFileCover = $_FILES['cover']['tmp_name'];
-    $fileNameBook = $_FILES['book']['name'];
-    $tmpFileBook = $_FILES['book']['tmp_name'];
+    $coverName = $_FILES['cover']['name'];
+    $coverTmp = $_FILES['cover']['tmp_name'];
+    $coverSize = $_FILES['cover']['size'];
+    $bookName = $_FILES['book']['name'];
+    $bookTmp = $_FILES['book']['tmp_name'];
+    $bookSize = $_FILES['book']['size'];
 
-    move_uploaded_file($tmpFileCover, '../assets/image/' . strval(time()) . '-' . $fileNameCover);
-    move_uploaded_file($tmpFileBook, '../assets/books/' . strval(time()) . '-' . $fileNameBook);
+    move_uploaded_file($coverTmp, '../assets/image/' . strval(time()) . '-' . $coverName);
+    move_uploaded_file($bookTmp, '../assets/books/' . strval(time()) . '-' . $bookName);
 
-    return array('cover' => strval(time()) . '-' . $fileNameCover, 'book' => strval(time()) . '-' . $fileNameBook);
+    return array('cover' => strval(time()) . '-' . $coverName, 'book' => strval(time()) . '-' . $bookName);
 }
 
 function editBook($data)
 {
     global $db;
-    $Isbn = htmlspecialchars($data["isbn"]);
+    $isbn = htmlspecialchars($data["isbn"]);
     $title = htmlspecialchars($data["title"]);
     $author = htmlspecialchars($data["author"]);
 
-    if (strlen($Isbn) !== 13) {
-        return '<span class="failed">ISBN must be 13 digits.</span>';
-    } elseif (!CheckingBook($Isbn)) {
+    if (!ctype_digit($isbn) || strlen($isbn) !== 13) {
+        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
+    } elseif (!CheckingBook($isbn)) {
         return "<span class='failed'>ISBN is not found or has been deleted.</span>";
     } else {
-        $fileName = uploadEdit();
+        $fileName = uploadBook();
         $cover = $fileName["cover"];
         $book = $fileName["book"];
-        $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$Isbn'");
+        $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$isbn'");
         $data_link = mysqli_fetch_assoc($result);
         unlink('../assets/books/' . $data_link["book"]);
         unlink('../assets/image/' . $data_link["cover"]);
-        mysqli_query($db, "UPDATE books SET cover = '$cover' WHERE isbn = '$Isbn' ");
-        mysqli_query($db, "UPDATE books SET book = '$book' WHERE isbn = '$Isbn' ");
-        mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$Isbn' ");
-        mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$Isbn'");
+        mysqli_query($db, "UPDATE books SET cover = '$cover' WHERE isbn = '$isbn' ");
+        mysqli_query($db, "UPDATE books SET book = '$book' WHERE isbn = '$isbn' ");
+        mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$isbn' ");
+        mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$isbn'");
         return '<span class="success">Book is changed.</span>';
     }
 }
@@ -164,14 +179,14 @@ function delBook($data)
 
     $isbn = htmlspecialchars($data["delISBN"]);
 
-    if (strlen($isbn) != 13) {
-        return '<span class="failed">ISBN must be 13 digits.</span>';
+    if (!ctype_digit($isbn) || strlen($isbn) != 13) {
+        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
     } elseif (!CheckingBook($isbn)) {
         return '<span class="failed">ISBN is not found or has been deleted.</span>';
     } else {
         $result = mysqli_query($db, "SELECT cover, book from books WHERE isbn = '$isbn'");
         $fileName = mysqli_fetch_assoc($result);
-        if (file_exists('../assets/image/' . $fileName["cover"]) || file_exists('../assets/books/' . $fileName["book"])) {
+        if (file_exists('../assets/image/' . $fileName["cover"]) && file_exists('../assets/books/' . $fileName["book"])) {
             unlink('../assets/image/' . $fileName["cover"]);
             unlink('../assets/books/' . $fileName["book"]);
         } else {
