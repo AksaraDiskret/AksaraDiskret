@@ -148,12 +148,13 @@ function editBook($data)
         $book = $fileName["book"];
         $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$Isbn'");
         $data_link = mysqli_fetch_assoc($result);
-        unlink('../assets/image/' . $data_link["book"]);
-        unlink('../assets/cover/' . $data_link["cover"]);
+        unlink('../assets/books/' . $data_link["book"]);
+        unlink('../assets/image/' . $data_link["cover"]);
         mysqli_query($db, "UPDATE books SET cover = '$cover' WHERE isbn = '$Isbn' ");
         mysqli_query($db, "UPDATE books SET book = '$book' WHERE isbn = '$Isbn' ");
         mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$Isbn' ");
         mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$Isbn'");
+        return '<span class="success">Book is changed.</span>';
     }
 }
 
