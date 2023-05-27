@@ -16,12 +16,21 @@ if (!$row['id']) {
     exit;
 }
 
-if (isset($_POST["action"]) && $_POST["book-action"] == "upload") {
-    $Warning = addBook($_POST);
+if (isset($_POST["action"])) {
+
+    if ($_POST["book-action"] == "upload") {
+        $Warning = addBook($_POST);
+    }
+
+    if ($_POST["book-action"] == "edit") {
+        $Warning = editBook($_POST);
+    }
 }
+
 if (isset($_POST["delete"])) {
     $Warning_del = delBook($_POST);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

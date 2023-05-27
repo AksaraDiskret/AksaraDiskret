@@ -66,7 +66,7 @@ function CheckingBook($isbn)
     global $db;
 
     $result = mysqli_query($db, "SELECT isbn FROM books WHERE isbn = '$isbn'");
-    $isAdd = rowData($result)[0];
+    $isAdd = rowData($result);
 
     return (!$isAdd) ? false : true;
 }
@@ -110,7 +110,7 @@ function addBook($data)
     } elseif (CheckingBook($isbn)) {
         return '<span class="failed">Book is already uploaded using this ISBN.</span>';
     } else {
-        $fileName = upload();
+        $fileName = uploadEdit();
         $cover = $fileName['cover'];
         $book = $fileName['book'];
         mysqli_query($db, "INSERT INTO books VALUES ('$cover','$book','$isbn','$title','$author')");
@@ -118,7 +118,7 @@ function addBook($data)
     }
 }
 
-function upload()
+function uploadEdit()
 {
     $fileNameCover = $_FILES['cover']['name'];
     $tmpFileCover = $_FILES['cover']['tmp_name'];
@@ -129,6 +129,32 @@ function upload()
     move_uploaded_file($tmpFileBook, '../assets/books/' . strval(time()) . '-' . $fileNameBook);
 
     return array('cover' => strval(time()) . '-' . $fileNameCover, 'book' => strval(time()) . '-' . $fileNameBook);
+}
+
+function editBook($data)
+{
+    global $db;
+    $Isbn = htmlspecialchars($data["isbn"]);
+    $title = htmlspecialchars($data["title"]);
+    $author = htmlspecialchars($data["author"]);
+
+    if (strlen($Isbn) !== 13) {
+        return '<span class="failed">ISBN must be 13 digits.</span>';
+    } elseif (!CheckingBook($Isbn)) {
+        return "<span class='failed'>ISBN is not found or has been deleted.</span>";
+    } else {
+        $fileName = uploadEdit();
+        $cover = $fileName["cover"];
+        $book = $fileName["book"];
+        $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$Isbn'");
+        $data_link = mysqli_fetch_assoc($result);
+        unlink('../assets/image/' . $data_link["book"]);
+        unlink('../assets/cover/' . $data_link["cover"]);
+        mysqli_query($db, "UPDATE books SET cover = '$cover' WHERE isbn = '$Isbn' ");
+        mysqli_query($db, "UPDATE books SET book = '$book' WHERE isbn = '$Isbn' ");
+        mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$Isbn' ");
+        mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$Isbn'");
+    }
 }
 
 function delBook($data)
@@ -153,6 +179,8 @@ function delBook($data)
         }
     }
 }
+
+
 
 function Validation_signin($email, $pass)
 {
