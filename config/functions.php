@@ -109,6 +109,10 @@ function addBook($data)
         return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
     } elseif (CheckingBook($isbn)) {
         return '<span class="failed">Book is already uploaded using this ISBN.</span>';
+    } elseif (!preg_match('/^[\w ]+$/', $title)) {
+        return '<span class="failed">Please enter the appropriate Title format, only letters & numbers.</span>';
+    } elseif (!preg_match("/^(?!.*['-]{2})[a-zA-Z][a-zA-Z'\s-]{1,20}$/", $author)) {
+        return '<span class="failed">Please enter the appropriate Name format, only letters.</span>';
     } else {
         if ($_FILES['cover']['error'] || $_FILES['book']['error'] === 4) {
             return '<span class="failed">Please choose a files.</span>';
@@ -120,6 +124,8 @@ function addBook($data)
 
             if (!in_array($mimeTypeCover, $fileTypesCover) || !in_array($mimeTypeBook, $fileTypesBook)) {
                 return '<span class="failed">Not a supported files type.</span>';
+            } elseif ($_FILES['cover']['size'] > 24000000 || $_FILES['book']['size'] > 720000000) {
+                return '<span class="failed">File sizes is too big.</span>';
             } else {
                 $fileName = uploadBook();
                 $cover = $fileName['cover'];
@@ -135,10 +141,8 @@ function uploadBook()
 {
     $coverName = $_FILES['cover']['name'];
     $coverTmp = $_FILES['cover']['tmp_name'];
-    $coverSize = $_FILES['cover']['size'];
     $bookName = $_FILES['book']['name'];
     $bookTmp = $_FILES['book']['tmp_name'];
-    $bookSize = $_FILES['book']['size'];
 
     move_uploaded_file($coverTmp, '../assets/image/' . strval(time()) . '-' . $coverName);
     move_uploaded_file($bookTmp, '../assets/books/' . strval(time()) . '-' . $bookName);
