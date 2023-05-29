@@ -67,7 +67,6 @@ function CheckingBook($isbn)
 
     $result = mysqli_query($db, "SELECT isbn FROM books WHERE isbn = '$isbn'");
     $isAdd = rowData($result);
-
     return (!$isAdd) ? false : true;
 }
 
@@ -97,7 +96,53 @@ function addUser($data)
     }
 }
 
-function addBook($data)
+function bookAction($data)
+{
+    $isbn = htmlspecialchars($data["isbn"]);
+    $title = htmlspecialchars($data["title"]);
+    $author = htmlspecialchars($data["author"]);
+
+    if (!ctype_digit($isbn) || strlen($isbn) != 13) {
+        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
+    } elseif (!preg_match('/^[\w ]+$/', $title)) {
+        return '<span class="failed">Please enter the appropriate Title format, only letters & numbers.</span>';
+    } elseif (!preg_match("/^(?!.*['-]{2})[a-zA-Z][a-zA-Z'\s-]{1,20}$/", $author)) {
+        return '<span class="failed">Please enter the appropriate Name format, only letters.</span>';
+    } elseif (!isset($_POST["book-action"])) {
+        return '<span class="failed">Please choose a action.</span>';
+    } elseif (isset($data["confirm-action"])) {
+        if ($_POST["book-action"] == "edit") {
+            // editBook($data);
+            return '<span class="success">Book edited.</span>';
+        } elseif ($_POST["book-action"] == "upload") {
+            if (CheckingBook($isbn)) {
+                return '<span class="failed">Book is already uploaded using this ISBN.</span>';
+            } elseif ($_FILES['cover']['error'] || $_FILES['book']['error'] === 4) {
+                return '<span class="failed">Please choose a files to upload.</span>';
+            } elseif (is_uploaded_file($_FILES['cover']['tmp_name']) || is_uploaded_file($_FILES['book']['tmp_name'])) {
+                $mimeTypeCover = mime_content_type($_FILES['cover']['tmp_name']);
+                $mimeTypeBook = mime_content_type($_FILES['book']['tmp_name']);
+                $fileTypesCover = ['image/png', 'image/jpg', 'image/jpeg'];
+                $fileTypesBook = ['application/pdf'];
+
+                if (!in_array($mimeTypeCover, $fileTypesCover) || !in_array($mimeTypeBook, $fileTypesBook)) {
+                    return '<span class="failed">Not a supported files type.</span>';
+                } elseif ($_FILES['cover']['size'] > 24000000 || $_FILES['book']['size'] > 720000000) {
+                    return '<span class="failed">File sizes is too big.</span>';
+                } else {
+                    uploadBook($data);
+                    return '<span class="success">Book is uploaded.</span>';
+                }
+            }
+        } else {
+            return '<span class="failed">None of the options match.</span>';
+        }
+    } else {
+        return '<span class="failed">Agreement confirmation has not been checked.</span>';
+    }
+}
+
+function uploadBook($data)
 {
     global $db;
 
@@ -105,39 +150,13 @@ function addBook($data)
     $title = htmlspecialchars($data["title"]);
     $author = htmlspecialchars($data["author"]);
 
-    if (!ctype_digit($isbn) || strlen($isbn) != 13) {
-        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
-    } elseif (CheckingBook($isbn)) {
-        return '<span class="failed">Book is already uploaded using this ISBN.</span>';
-    } elseif (!preg_match('/^[\w ]+$/', $title)) {
-        return '<span class="failed">Please enter the appropriate Title format, only letters & numbers.</span>';
-    } elseif (!preg_match("/^(?!.*['-]{2})[a-zA-Z][a-zA-Z'\s-]{1,20}$/", $author)) {
-        return '<span class="failed">Please enter the appropriate Name format, only letters.</span>';
-    } else {
-        if ($_FILES['cover']['error'] || $_FILES['book']['error'] === 4) {
-            return '<span class="failed">Please choose a files.</span>';
-        } elseif (is_uploaded_file($_FILES['cover']['tmp_name']) || is_uploaded_file($_FILES['book']['tmp_name'])) {
-            $mimeTypeCover = mime_content_type($_FILES['cover']['tmp_name']);
-            $mimeTypeBook = mime_content_type($_FILES['book']['tmp_name']);
-            $fileTypesCover = ['image/png', 'image/jpg', 'image/jpeg'];
-            $fileTypesBook = ['application/pdf'];
-
-            if (!in_array($mimeTypeCover, $fileTypesCover) || !in_array($mimeTypeBook, $fileTypesBook)) {
-                return '<span class="failed">Not a supported files type.</span>';
-            } elseif ($_FILES['cover']['size'] > 24000000 || $_FILES['book']['size'] > 720000000) {
-                return '<span class="failed">File sizes is too big.</span>';
-            } else {
-                $fileName = uploadBook();
-                $cover = $fileName['cover'];
-                $book = $fileName['book'];
-                mysqli_query($db, "INSERT INTO books VALUES ('$cover','$book','$isbn','$title','$author')");
-                return '<span class="success">Book is uploaded.</span>';
-            }
-        }
-    }
+    $fileName = uploadFiles();
+    $cover = $fileName['cover'];
+    $book = $fileName['book'];
+    mysqli_query($db, "INSERT INTO books VALUES ('$cover','$book','$isbn','$title','$author')");
 }
 
-function uploadBook()
+function uploadFiles()
 {
     $coverName = $_FILES['cover']['name'];
     $coverTmp = $_FILES['cover']['tmp_name'];
@@ -162,7 +181,7 @@ function editBook($data)
     } elseif (!CheckingBook($isbn)) {
         return "<span class='failed'>ISBN is not found or has been deleted.</span>";
     } else {
-        $fileName = uploadBook();
+        $fileName = uploadFiles();
         $cover = $fileName["cover"];
         $book = $fileName["book"];
         $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$isbn'");
@@ -186,7 +205,9 @@ function delBook($data)
     if (!ctype_digit($isbn) || strlen($isbn) != 13) {
         return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
     } elseif (!CheckingBook($isbn)) {
-        return '<span class="failed">ISBN is not found or has been deleted.</span>';
+        return "<span class='failed'>ISBN is not found or has been deleted.</span>";
+    } elseif (!isset($_POST["delete-confirm"])) {
+        return "<span class='failed'>Delete confirmation has not been checked.</span>";
     } else {
         $result = mysqli_query($db, "SELECT cover, book from books WHERE isbn = '$isbn'");
         $fileName = mysqli_fetch_assoc($result);

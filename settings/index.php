@@ -12,11 +12,11 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_C
 require "../config/functions.php";
 
 if (isset($_POST["change_email"])) {
-    $warning_email = ChangeEmail($_POST);
+    $notif_email = ChangeEmail($_POST);
 }
 
 if (isset($_POST["change_pass"])) {
-    $warning_pass = ChangePass($_POST);
+    $notif_pass = ChangePass($_POST);
 }
 
 
@@ -70,8 +70,8 @@ if (isset($_POST["change_pass"])) {
             <form method="post">
                 <h2>Change your email</h2>
                 <input type="email" name="new_email" id="new-email" class="rounded-box" placeholder="New Email Address" required>
-                <?php if (isset($warning_email)) : ?>
-                    <?= $warning_email ?>
+                <?php if (isset($notif_email)) : ?>
+                    <?= $notif_email ?>
                 <?php endif; ?>
                 <button type="submit" name="change_email" class="rounded-box primary-btn">Change Email</button>
                 <hr>
@@ -89,8 +89,8 @@ if (isset($_POST["change_pass"])) {
                     <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
                 </div>
                 <button type="submit" name="change_pass" class="rounded-box primary-btn">Change Password</button>
-                <?php if (isset($warning_pass)) {
-                    echo $warning_pass;
+                <?php if (isset($notif_pass)) {
+                    echo $notif_pass;
                 } ?>
             </form>
         </main>

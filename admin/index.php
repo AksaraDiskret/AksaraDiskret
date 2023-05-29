@@ -1,36 +1,20 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["signin"])) {
-    header("Location: ../signin");
-    exit;
-}
-
 require '../config/functions.php';
 $result = mysqli_query($db, "SELECT id FROM admin WHERE
     id = 1");
 $row = mysqli_fetch_assoc($result);
-
-if (!$row['id']) {
+if (!isset($_SESSION["signin"])) {
+    header("Location: ../signin");
+    exit;
+} elseif (!$row['id']) {
     header("Location: ../collection");
     exit;
+} elseif (isset($_POST["action"])) {
+    $notif = bookAction($_POST);
+} elseif (isset($_POST["delete"])) {
+    $delNotif = delBook($_POST);
 }
-
-if (isset($_POST["action"])) {
-
-    if ($_POST["book-action"] == "upload") {
-        $Warning = addBook($_POST);
-    }
-
-    if ($_POST["book-action"] == "edit") {
-        $Warning = editBook($_POST);
-    }
-}
-
-if (isset($_POST["delete"])) {
-    $Warning_del = delBook($_POST);
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,43 +52,44 @@ if (isset($_POST["delete"])) {
     </header>
     <div class="app-container">
         <main>
+            <!-- 9989898989898 -->
             <a class="back" href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
-            <h1>Admin Area</h1>
+            <h1>Admin restricted area</h1>
             <form class="admin" method="post" enctype="multipart/form-data">
-                <h2>Upload or Edit a book</h2>
-                <p>Cover image (<b>png, jpg,</b> & <b>jpeg</b>) max size <b>24MB</b> & min resolution <b>2000</b> x <b>3000</b> pixels or <b>2:3</b> aspect ratio :</p>
-                <input name="cover" type="file" class="rounded-box" accept="image/png, image/jpeg" required>
-                <p>Book file (<b>pdf</b>) max size <b>720MB</b> :</p>
-                <input name="book" type="file" class="rounded-box" accept="application/pdf" required>
+                <h2>Edit or Upload a book</h2>
                 <input name="isbn" type="number" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
                 <input name="title" type="text" id="book-title" class="rounded-box" placeholder="Title" required>
                 <input name="author" type="text" id="book-author" class="rounded-box" placeholder="Author" required>
+                <p class="warning"><b>Note</b> : Files cannot be edited.</p>
+                <p>Cover image (<b>png, jpg,</b> & <b>jpeg</b>) max size <b>24MB</b> & min resolution <b>2000</b> x <b>3000</b> pixels or <b>2:3</b> aspect ratio :</p>
+                <input name="cover" type="file" class="rounded-box" accept="image/png, image/jpeg">
+                <p>Book file (<b>pdf</b>) max size <b>720MB</b> :</p>
+                <input name="book" type="file" class="rounded-box" accept="application/pdf">
                 <p>Choose an action :</p>
                 <select name="book-action" id="book-action" class="rounded-box" required>
                     <option selected="selected" disabled="disabled" value="">Please Select</option>
-                    <option value="upload">Upload</option>
                     <option value="edit">Edit</option>
+                    <option value="upload">Upload</option>
                 </select>
                 <div class="check-box">
-                    <input type="checkbox" id="action-confirm" onclick="actionConfirm()">
-                    <label for="action-confirm">I am fully responsible for the book that I upload from any unwanted
-                        things that might happen later.</label>
+                    <input type="checkbox" name="confirm-action" id="confirm-action" onclick="actionConfirm()">
+                    <label for="confirm-action">I am fully responsible for the book that i give, from any unwanted things that might happen later.</label>
                 </div>
-                <?php if (isset($Warning)) {
-                    echo $Warning;
+                <?php if (isset($notif)) {
+                    echo $notif;
                 } ?>
                 <button name="action" type="submit" id="action-btn" class="rounded-box primary-btn" disabled>Confirm Action</button>
                 <hr>
             </form>
             <form class="admin" method="post">
-                <h2>Delete a book</h2>
+                <h2 class="del">Delete book</h2>
                 <input name="delISBN" type="number" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
                 <div class="check-box">
-                    <input type="checkbox" id="delete-confirm" onclick="deleteConfirm()">
-                    <label for="delete-confirm">Confirm to delete the book.</label>
+                    <input type="checkbox" name="delete-confirm" id="delete-confirm" onclick="deleteConfirm()">
+                    <label for="delete-confirm">Confirm to delete a book. This action cannot be undone.</label>
                 </div>
-                <?php if (isset($Warning_del)) {
-                    echo $Warning_del;
+                <?php if (isset($delNotif)) {
+                    echo $delNotif;
                 } ?>
                 <button name="delete" type="submit" id="delete-btn" class="rounded-box primary-btn" disabled>Delete Book</button>
             </form>

@@ -45,7 +45,7 @@ function hidePassword(spassword, hpassword, show) {
 }
 
 function actionConfirm() {
-  const actionConfirm = document.getElementById("action-confirm");
+  const actionConfirm = document.getElementById("confirm-action");
   const actionBtn = document.getElementById("action-btn");
 
   if (actionConfirm.checked) {

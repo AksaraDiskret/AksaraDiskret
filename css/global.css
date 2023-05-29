@@ -74,6 +74,7 @@ footer {
 .failed,
 .success,
 .check-box,
+.warning,
 footer {
     font-size: 14px;
 }
@@ -181,11 +182,19 @@ select {
 }
 
 .failed,
-.success {
+.success,
+.warning {
     border-radius: 12px;
     background-color: hsla(228, 63%, 48%, 0.1);
     padding: 4px;
     font-weight: 500;
+}
+
+p.warning {
+    background-color: hsla(0, 0%, 0%, 0.1);
+    text-align: center;
+    color: #2D4CC9;
+    margin-bottom: 0 !important;
 }
 
 .check-box {

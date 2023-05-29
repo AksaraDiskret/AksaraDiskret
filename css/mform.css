@@ -15,6 +15,14 @@ h1 {
     margin-bottom: -12px;
 }
 
+h2 {
+    margin-bottom: -10px;
+}
+
+h2.del {
+    color: red;
+}
+
 .back {
     align-self: flex-start;
     max-width: fit-content;

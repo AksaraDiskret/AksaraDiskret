@@ -10,7 +10,7 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
 }
 
 if (isset($_POST["submit"])) {
-    $Warning = addUser($_POST);
+    $notif = addUser($_POST);
 }
 
 
@@ -63,8 +63,8 @@ if (isset($_POST["submit"])) {
                     <img id="s-default-pass" src="../assets/icon/remixicon-eye-off-line.svg" alt="Show Password Icon">
 
                 </div>
-                <?php if (isset($Warning)) {
-                    echo $Warning;
+                <?php if (isset($notif)) {
+                    echo $notif;
                 } ?>
                 <button type="submit" class="rounded-box primary-btn" id="data-btn" name="submit">Sign
                     Up</button>
