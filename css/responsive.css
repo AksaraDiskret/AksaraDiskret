@@ -53,7 +53,7 @@
 
 @media only screen and (min-width: 600px) {
     nav ul {
-        gap: 24px;
+        gap: 40px;
     }
 
     header {
@@ -74,10 +74,6 @@
 }
 
 @media only screen and (min-width: 768px) {
-    nav ul {
-        gap: 32px;
-    }
-
     header {
         padding: var(--spacing) 64px;
     }
@@ -92,10 +88,6 @@
 }
 
 @media only screen and (min-width: 992px) {
-    nav ul {
-        gap: 64px;
-    }
-
     header {
         padding: var(--spacing) 128px;
     }
@@ -110,10 +102,6 @@
 }
 
 @media only screen and (min-width: 1200px) {
-    nav ul {
-        gap: 128px;
-    }
-
     header {
         padding: var(--spacing) 160px;
     }

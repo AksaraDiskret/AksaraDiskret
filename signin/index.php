@@ -35,7 +35,7 @@ if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $pass = $_POST["password"];
 
-    $wrong = Validation_signin($email, $pass);
+    $wrong = validationSignin($email, $pass);
 }
 
 if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
@@ -92,7 +92,7 @@ if (isset($_SESSION["signin"]) || isset($_SESSION["signinUser"])) {
                     <label for="remember-me">Remember Me</label>
                 </div>
                 <?php if (isset($wrong)) : ?>
-                    <span class="failed">Email Address or Password is invalid!</span>
+                    <span class="failed">Email address or Password is invalid.</span>
                 <?php endif; ?>
                 <button type="submit" name="signin" class="rounded-box primary-btn">Sign In</button>
                 <p class="user-note">Doesn't have an account? <a href="../signup" class="link">Sign up</a></p>

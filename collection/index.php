@@ -8,10 +8,7 @@ if (!isset($_SESSION["signin"]) && !isset($_SESSION["signinUser"]) && !isset($_C
     exit;
 }
 
-// when set cookie we repeat make sesssion
 checkCookie();
-
-// retrieve the username with these conditions when the browser is closed then opened again
 
 if (isset($_SESSION["idUser"])) {
     $idusername = $_SESSION["idUser"];
@@ -65,18 +62,16 @@ $result = mysqli_query($db, "SELECT * FROM books");
     <div class="app-container">
         <main>
             <div class="account">
-                <div class="data">
-                    <p>Welcome,</p>
-                    <div class="account-menu">
-                        <?php if (isset($_SESSION["USERNAME"])) : ?>
-                            <span id="user">
-                                <?= $_SESSION["USERNAME"] ?>
-                            </span>
-                        <?php else : ?>
-                            <span id="user">ADMIN</span>
-                        <?php endif; ?>
-                        <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
-                    </div>
+                <div class="account-menu">
+                    <span>Welcome,</span>
+                    <?php if (isset($_SESSION["USERNAME"])) : ?>
+                        <span id="user">
+                            <?= $_SESSION["USERNAME"] ?>
+                        </span>
+                    <?php else : ?>
+                        <span id="user">ADMIN</span>
+                    <?php endif; ?>
+                    <a href="../settings"><img src="../assets/icon/remixicon-settings-3-line.svg" alt="Settings Icon"></a>
                 </div>
                 <a href="../signout" class="rounded-box btn primary-btn">Sign Out</a>
             </div>

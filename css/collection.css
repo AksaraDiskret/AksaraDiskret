@@ -12,10 +12,10 @@ main {
     gap: 8px;
 }
 
-.account {
+.account,
+.account-menu {
     justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
 }
 
 .data,

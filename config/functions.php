@@ -1,5 +1,6 @@
 <?php
 $db = mysqli_connect("localhost", "root", "", "aksara_diskret");
+
 function rowData($var)
 {
     $rows = [];
@@ -50,7 +51,7 @@ function checkCookie()
 function CheckingEmail($email)
 {
     global $db;
-    // mengecek apakah email sudah terdaftar atau belum
+
     $result = mysqli_query($db, "SELECT email FROM users");
     $result_user = mysqli_query($db, "SELECT email FROM admin");
     $email_in_User = rowData2($result);
@@ -61,7 +62,7 @@ function CheckingEmail($email)
     return false;
 }
 
-function CheckingBook($isbn)
+function bookCheck($isbn)
 {
     global $db;
 
@@ -79,12 +80,10 @@ function addUser($data)
     $email = htmlspecialchars($data["email"]);
     $password = htmlspecialchars($data["password"]);
 
-
-    //mengecek apakah $password kurang dari dari 8 karakter
     if (strlen("$password") < 8) {
         return '<span class="failed">Password must be at least 8 characters long.</span>';
     }
-    // enskirpsi passowrd
+
     $hashpassword =  password_hash($password, PASSWORD_DEFAULT);
     $queryInsert = "INSERT INTO users VALUES ('', '$first_name','$last_name','$email','$hashpassword')";
     if (CheckingEmail($email)) {
@@ -92,7 +91,7 @@ function addUser($data)
     }
     mysqli_query($db, $queryInsert);
     if (mysqli_affected_rows($db) > 0) {
-        return '<span class="success">Registration successful! Welcome aboard.</span>';
+        return '<span class="success">Registration is successful. Welcome aboard.</span>';
     }
 }
 
@@ -112,10 +111,10 @@ function bookAction($data)
         return '<span class="failed">Please choose a action.</span>';
     } elseif (isset($data["confirm-action"])) {
         if ($_POST["book-action"] == "edit") {
-            // editBook($data);
-            return '<span class="success">Book edited.</span>';
+            editBook($data);
+            return '<span class="success">Book is edited.</span>';
         } elseif ($_POST["book-action"] == "upload") {
-            if (CheckingBook($isbn)) {
+            if (bookCheck($isbn)) {
                 return '<span class="failed">Book is already uploaded using this ISBN.</span>';
             } elseif ($_FILES['cover']['error'] || $_FILES['book']['error'] === 4) {
                 return '<span class="failed">Please choose a files to upload.</span>';
@@ -176,24 +175,8 @@ function editBook($data)
     $title = htmlspecialchars($data["title"]);
     $author = htmlspecialchars($data["author"]);
 
-    if (!ctype_digit($isbn) || strlen($isbn) !== 13) {
-        return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
-    } elseif (!CheckingBook($isbn)) {
-        return "<span class='failed'>ISBN is not found or has been deleted.</span>";
-    } else {
-        $fileName = uploadFiles();
-        $cover = $fileName["cover"];
-        $book = $fileName["book"];
-        $result = mysqli_query($db, "SELECT cover,book FROM books WHERE isbn = '$isbn'");
-        $data_link = mysqli_fetch_assoc($result);
-        unlink('../assets/books/' . $data_link["book"]);
-        unlink('../assets/image/' . $data_link["cover"]);
-        mysqli_query($db, "UPDATE books SET cover = '$cover' WHERE isbn = '$isbn' ");
-        mysqli_query($db, "UPDATE books SET book = '$book' WHERE isbn = '$isbn' ");
-        mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$isbn' ");
-        mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$isbn'");
-        return '<span class="success">Book is changed.</span>';
-    }
+    mysqli_query($db, "UPDATE books SET title = '$title' WHERE isbn = '$isbn' ");
+    mysqli_query($db, "UPDATE books SET author = '$author' WHERE isbn = '$isbn'");
 }
 
 function delBook($data)
@@ -204,7 +187,7 @@ function delBook($data)
 
     if (!ctype_digit($isbn) || strlen($isbn) != 13) {
         return '<span class="failed">ISBN must be a number only &  with length of 13 digit.</span>';
-    } elseif (!CheckingBook($isbn)) {
+    } elseif (!bookCheck($isbn)) {
         return "<span class='failed'>ISBN is not found or has been deleted.</span>";
     } elseif (!isset($_POST["delete-confirm"])) {
         return "<span class='failed'>Delete confirmation has not been checked.</span>";
@@ -221,9 +204,7 @@ function delBook($data)
     }
 }
 
-
-
-function Validation_signin($email, $pass)
+function validationSignin($email, $pass)
 {
     global $db;
     $result = mysqli_query($db, "SELECT * FROM admin WHERE email = '$email'");
@@ -255,7 +236,7 @@ function Validation_signin($email, $pass)
             setcookie('signin', $row_users["id"], time() + 60, '/');
             setcookie('secret', hash('sha512', $row_users["email"]), time() + 60, '/');
         }
-        // The username will be taken from here when the new user logs in for the first time
+
         $first_name = $row_users['first_name'];
         $last_name = $row_users['last_name'];
 
@@ -267,8 +248,6 @@ function Validation_signin($email, $pass)
 
     return true;
 }
-
-
 
 function ChangeEmail($data)
 {
@@ -287,10 +266,9 @@ function ChangeEmail($data)
     mysqli_query($db, "UPDATE $table SET email='$new_email' WHERE id = '$id'");
 
     if (mysqli_affected_rows($db) > 0) {
-        return '<span class="success">Email Changed</span>';
+        return '<span class="success">Email is changed.</span>';
     }
 }
-
 
 function ChangePass($data)
 {
@@ -299,7 +277,7 @@ function ChangePass($data)
     $old_pass = $data["old-password"];
 
 
-    if ($new_pass === $old_pass) return "<span class='failed'>Enter new password!</span>";
+    if ($new_pass === $old_pass) return "<span class='failed'>Please enter a new password.</span>";
 
     if (strlen($new_pass) < 8) {
         return '<span class="failed">Password must be at least 8 characters long.</span>';
@@ -321,11 +299,10 @@ function ChangePass($data)
     if (password_verify($old_pass, $passwoor_in_db["password"])) {
         $hashpassword = password_hash($new_pass, PASSWORD_DEFAULT);
         mysqli_query($db, "UPDATE $table SET password = '$hashpassword' WHERE id = '$id'");
-        return '<span class="success">Password changed.</span>';
+        return '<span class="success">Password is changed.</span>';
     }
-    return '<span class="failed">The password you entered is incorrect.</span>';
+    return '<span class="failed">The old password you entered is incorrect.</span>';
 }
-
 
 function FeaturePrivilege()
 {

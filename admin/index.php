@@ -52,15 +52,14 @@ if (!isset($_SESSION["signin"])) {
     </header>
     <div class="app-container">
         <main>
-            <!-- 9989898989898 -->
             <a class="back" href="../collection/"><img src="../assets/icon/remixicon-arrow-left-line.svg" alt="Back Icon"></a>
             <h1>Admin restricted area</h1>
             <form class="admin" method="post" enctype="multipart/form-data">
                 <h2>Edit or Upload a book</h2>
                 <input name="isbn" type="number" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
+                <p class="warning"><b>Note</b> : ISBN & files cannot be edited.</p>
                 <input name="title" type="text" id="book-title" class="rounded-box" placeholder="Title" required>
                 <input name="author" type="text" id="book-author" class="rounded-box" placeholder="Author" required>
-                <p class="warning"><b>Note</b> : Files cannot be edited.</p>
                 <p>Cover image (<b>png, jpg,</b> & <b>jpeg</b>) max size <b>24MB</b> & min resolution <b>2000</b> x <b>3000</b> pixels or <b>2:3</b> aspect ratio :</p>
                 <input name="cover" type="file" class="rounded-box" accept="image/png, image/jpeg">
                 <p>Book file (<b>pdf</b>) max size <b>720MB</b> :</p>
