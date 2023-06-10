@@ -1,0 +1,118 @@
+main {
+    grid-template-columns: .4fr;
+    justify-items: center;
+    place-items: unset;
+    gap: 40px;
+}
+.back-icon {
+    max-width: fit-content;
+    align-self: flex-start;
+}
+form p {
+    margin-bottom: -10px;
+    font-weight: 500;
+}
+.remember-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+.sign {
+    text-align: center;
+}
+.delete-book {
+    color: red;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: 1px solid var(--primary);
+}
+#first-name,
+#last-name,
+input[name="title"],
+input[name="author"] {
+    text-transform: capitalize;
+}
+input[type="checkbox"],
+label {
+    cursor: pointer;
+}
+input#confirm-action {
+    margin-top: 5px;
+}
+select~.check-box {
+    align-items: flex-start;
+}
+.pass-box input {
+    min-width: 100%;
+    padding-right: 56px;
+}
+.pass-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.pass-box button {
+    position: absolute;
+    top: 15px;
+    right: 16px;
+    bottom: 0;
+    height: fit-content;
+}
+.check-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.failed {
+    color: red;
+}
+.success {
+    color: green;
+}
+.failed,
+.success {
+    max-width: fit-content;
+    margin: auto;
+    font-weight: 500;
+    text-align: center;
+    font-size: 16px;
+}
+.check-box {
+    font-size: 14px;
+}
+button:disabled {
+    outline: none;
+    background-color: var(--dark-grey);
+    cursor: not-allowed;
+}
+button:disabled:hover {
+    outline: none;
+    color: var(--white);
+    background-color: var(--dark-grey);
+}
+button[name="del_photo"] {
+    outline: 1px solid red;
+    color: var(--black);
+    background-color: transparent;
+    padding: 14px 24px;
+}
+button[name="del_photo"]:hover {
+    outline: 1px solid red;
+    background-color: var(--light-depth);
+}
+.user-note {
+    font-weight: 400;
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    main {
+        flex-direction: column;
+        text-align: left;
+    }
+}

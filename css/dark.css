@@ -1,0 +1,183 @@
+:root {
+    --dark: hsl(0, 0%, 7%);
+    --dark-depth: hsl(0, 0%, 14%);
+    --dark-trans: hsla(0, 0%, 7%, 0.6);
+    --dark-primary: hsl(228, 97%, 60%);
+    --dark-text: hsl(0, 0%, 93%);
+    --dark-outline: hsl(0, 0%, 60%);
+    --dark-border: hsl(0, 0%, 22%);
+    --dark-hover: hsl(0, 0%, 80%);
+    --dark-red: hsl(0, 100%, 65%);
+    --dark-red-outline: hsl(0, 100%, 30%);
+    --dark-green: hsl(100, 50%, 47%);
+    --dark-white: hsl(0, 0%, 100%);
+    --dark-accent: hsl(228, 23%, 19%);
+}
+body {
+    background-color: var(--dark);
+    color: var(--dark-text);
+}
+body img {
+    filter: brightness(.9);
+}
+h1 {
+    font-weight: 800;
+}
+h2,
+b,
+#user {
+    font-weight: 600;
+}
+p,
+label,
+form p,
+.user-note,
+.user-menu .link {
+    font-weight: 300;
+}
+header::before {
+    border-bottom: 1px solid var(--dark-border);
+}
+header {
+    color: var(--dark-text);
+    background-color: var(--dark-trans);
+}
+.status-btn {
+    outline: 1px solid var(--dark-outline);
+    font-weight: 600;
+}
+.status-btn:hover {
+    outline: 1px solid var(--dark-primary);
+    color: var(--dark-white);
+    background-color: var(--dark-primary);
+}
+#logo,
+#menu-icon,
+#close-icon,
+#back-icon,
+#dark,
+#view,
+#viewNew,
+#blur,
+#blurNew {
+    fill: var(--dark-white);
+}
+#logo:hover,
+#menu-icon:hover,
+#close-icon:hover,
+#back-icon:hover,
+#dark:hover,
+#view:hover,
+#viewNew:hover,
+#blur:hover,
+#blurNew:hover {
+    fill: var(--dark-hover);
+}
+a:hover {
+    color: var(--dark-hover);
+}
+hr {
+    border-color: var(--dark-border);
+}
+.link:hover {
+    color: var(--dark-hover);
+}
+input {
+    border: 1px solid var(--dark-border);
+    background-color: var(--dark-depth);
+    color: var(--dark-text);
+}
+input[type="checkbox"]:focus {
+    accent-color: var(--dark-primary);
+}
+input:focus-visible {
+    outline: 1px solid var(--dark-outline);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: 1px solid var(--dark-primary);
+    -webkit-text-fill-color: var(--dark-text);
+    -webkit-box-shadow: 0 0 0px 1000px var(--dark-accent) inset;
+}
+select {
+    outline: 1px solid var(--dark-primary);
+    background-color: var(--dark-depth);
+    color: var(--dark-text);
+}
+option {
+    background-color: var(--dark-depth);
+}
+.primary-btn,
+a.primary-btn {
+    outline: 1px solid var(--dark-primary);
+    color: var(--dark-white);
+    background-color: var(--dark-primary);
+}
+.primary-btn:hover,
+a.primary-btn:hover {
+    outline: 1px solid var(--dark-primary);
+    color: var(--dark-white);
+}
+button:disabled {
+    background-color: var(--dark-border);
+}
+button:disabled:hover {
+    background-color: var(--dark-border);
+}
+button[name="del_photo"] {
+    outline: 1px solid var(--dark-red-outline);
+    color: var(--dark-white);
+}
+button[name="del_photo"]:hover {
+    outline: 1px solid var(--dark-red-outline);
+    background-color: var(--dark-depth);
+}
+.user-menu a:hover {
+    color: var(--dark-hover);
+}
+a[href="../signout"] {
+    outline: 1px solid var(--dark-outline);
+    color: var(--dark-white);
+}
+a[href="../signout"]:hover {
+    color: var(--dark-white);
+    background-color: var(--dark-primary);
+}
+.delete-book {
+    color: var(--dark-red);
+}
+.failed {
+    color: var(--dark-red);
+}
+.success {
+    color: var(--dark-green);
+}
+.books-item {
+    border: 1px solid var(--dark-border);
+    background-color: var(--dark-depth);
+}
+.books-item:hover {
+    color: var(--dark-text);
+    background-color: var(--dark-accent);
+}
+.isbn {
+    color: var(--dark-hover);
+}
+.uploader {
+    color: var(--dark-hover);
+}
+#upload-icon {
+    margin-top: -2px;
+    fill: var(--dark-hover);
+}
+@media only screen and (max-width: 600px) {
+    nav ul {
+        border-left: 1px solid var(--dark-border);
+        border-top: 1px solid var(--dark-border);
+        background-color: var(--dark-trans);
+    }
+}
