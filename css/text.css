@@ -1,57 +1,75 @@
-main,
-.content,
-.item,
-.item ul {
+main {
     display: flex;
     flex-direction: column;
-}
-
-main {
     justify-content: center;
     gap: 32px;
 }
-
 .content {
-    gap: 32px;
     max-width: 75ch;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 32px;
 }
-
-.content,
 .item {
+    display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 }
-
-.item {
-    width: 100%;
-}
-
-.item li {
-    border: 1px solid #000;
-    padding: 16px;
-}
-
-.nim {
-    font-size: 12px;
-}
-
-.item ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
-    list-style: none;
-    width: 100%;
-}
-
-.team-role {
-    color: var(--primary);
+h2 {
     font-size: 24px;
-    font-family: 'Caveat', cursive;
 }
-
 .link {
     font-weight: 400;
 }
-
+.team {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    list-style: none;
+}
+.account-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+.team-profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+}
+.profile-img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 48px;
+    border-radius: 50%;
+}
+.user-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+}
+#user {
+    font-size: 16px;
+    font-weight: 600;
+}
+#terms {
+    margin-top: 48px;
+    margin-bottom: -24px;
+    font-weight: 900;
+}
+.tnc {
+    padding: 0 156px 0 156px;
+}
+.tnc>li {
+    margin: 10px;
+}
 @media only screen and (max-width: 600px) {
     main {
         align-items: start;
@@ -59,18 +77,21 @@ main {
         gap: 24px;
         text-align: left;
     }
-
-    h1 {
+    h1,
+    #terms {
         font-size: 32px;
     }
-
     .content {
         gap: 32px;
     }
+    .tnc {
+        padding: 16px;
+        padding-bottom: 0;
+    }
 }
-
 @media only screen and (min-width: 600px) {
-    h1 {
+    h1,
+    #terms {
         font-size: 48px;
     }
 }

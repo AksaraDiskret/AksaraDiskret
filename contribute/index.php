@@ -5,20 +5,11 @@ if (!isset($_SESSION["signInUser"])) {
     header("Location: ../signin");
     exit();
 }
-if (isset($_POST["change_photo"])) {
-    $changePhotoMsg = changePhoto($_POST);
+if (isset($_POST["action"])) {
+    $actionMsg = bookAction($_POST);
 }
-if (isset($_POST["del_photo"])) {
-    $delPhotoMsg = delPhoto($_POST);
-}
-if (isset($_POST["change_name"])) {
-    $changeNameMsg = changeName($_POST);
-}
-if (isset($_POST["change_email"])) {
-    $changeEmailMsg = changeEmail($_POST);
-}
-if (isset($_POST["change_pass"])) {
-    $changePassMsg = changePass($_POST);
+if (isset($_POST["delete"])) {
+    $delMsg = delBook($_POST);
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +19,7 @@ if (isset($_POST["change_pass"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aksara Diskret">
-    <title>Settings | Aksara Diskret</title>
+    <title>Contribute | Aksara Diskret</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/forms.css">
@@ -69,7 +60,6 @@ if (isset($_POST["change_pass"])) {
                             </svg><svg xmlns="http://www.w3.org/2000/svg" id="dark" class="hide" viewBox="0 0 24 24" width="20" height="20">
                                 <path d="M11.3807 2.01904C9.91573 3.38786 9 5.33708 9 7.50018C9 11.6423 12.3579 15.0002 16.5 15.0002C18.6631 15.0002 20.6123 14.0844 21.9811 12.6195C21.6613 17.8539 17.3149 22.0002 12 22.0002C6.47715 22.0002 2 17.523 2 12.0002C2 6.68532 6.14629 2.33888 11.3807 2.01904Z"></path>
                             </svg></button></li>
-                    <li><a href="../contribute/">Contribute</a></li>
                     <li><a href="../faq">FAQ</a></li>
                     <li><a href="../about">About</a></li>
                 </ul>
@@ -89,68 +79,43 @@ if (isset($_POST["change_pass"])) {
             <a class="back-icon" href="../collections/"><svg xmlns="http://www.w3.org/2000/svg" id="back-icon" viewBox="0 0 24 24" width="32" height="32">
                     <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
                 </svg></a>
-            <h1>Settings</h1>
+            <h1>Contribute</h1>
             <form method="post" enctype="multipart/form-data">
-                <h2>Change your profile picture</h2>
-                <p>Image (<b>png, jpg,</b> & <b>jpeg</b>) with max size of <b>4MB</b> :</p>
-                <input name="photo" type="file" class="rounded-box files" accept="image/png, image/jpeg" id="photo">
-                <?php if (isset($_POST["change_photo"])) {
-                    echo $changePhotoMsg;
-                }
-                if (isset($_POST["del_photo"])) {
-                    echo $delPhotoMsg;
-                } ?>
-                <button type="submit" name="change_photo" class="rounded-box primary-btn" onclick="req()">Change Photo</button>
-                <button type="submit" name="del_photo" class="rounded-box primary-btn" onclick="hide()">Remove Photo</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your name</h2>
-                <input type="text" name="first-name" autocomplete="given-name" id="first-name" class="rounded-box" placeholder="First Name" required>
-                <input type="text" name="last-name" autocomplete="family-name" id="last-name" class="rounded-box" placeholder="Last Name" required>
-                <?php if (isset($_POST["change_name"])) {
-                    echo $changeNameMsg;
-                } ?>
-                <button type="submit" name="change_name" class="rounded-box primary-btn">Change Name</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your email</h2>
-                <input type="email" name="new_email" id="new-email" autocomplete="email" class="rounded-box" placeholder="New Email Address" required>
-                <?php if (isset($_POST["change_email"])) {
-                    echo $changeEmailMsg;
-                } ?>
-                <button type="submit" name="change_email" class="rounded-box primary-btn">Change Email</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your password</h2>
-                <div class="pass-box">
-                    <input type="password" name="old-password" autocomplete="current-password" class="rounded-box user-password" placeholder="Old Password" required>
-                    <button type="button" class="show-pass-btn" onclick="showPass()">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="view" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M17.8827 19.2968C16.1814 20.3755 14.1638 21.0002 12.0003 21.0002C6.60812 21.0002 2.12215 17.1204 1.18164 12.0002C1.61832 9.62282 2.81932 7.5129 4.52047 5.93457L1.39366 2.80777L2.80788 1.39355L22.6069 21.1925L21.1927 22.6068L17.8827 19.2968ZM5.9356 7.3497C4.60673 8.56015 3.6378 10.1672 3.22278 12.0002C4.14022 16.0521 7.7646 19.0002 12.0003 19.0002C13.5997 19.0002 15.112 18.5798 16.4243 17.8384L14.396 15.8101C13.7023 16.2472 12.8808 16.5002 12.0003 16.5002C9.51498 16.5002 7.50026 14.4854 7.50026 12.0002C7.50026 11.1196 7.75317 10.2981 8.19031 9.60442L5.9356 7.3497ZM12.9139 14.328L9.67246 11.0866C9.5613 11.3696 9.50026 11.6777 9.50026 12.0002C9.50026 13.3809 10.6196 14.5002 12.0003 14.5002C12.3227 14.5002 12.6309 14.4391 12.9139 14.328ZM20.8068 16.5925L19.376 15.1617C20.0319 14.2268 20.5154 13.1586 20.7777 12.0002C19.8603 7.94818 16.2359 5.00016 12.0003 5.00016C11.1544 5.00016 10.3329 5.11773 9.55249 5.33818L7.97446 3.76015C9.22127 3.26959 10.5793 3.00016 12.0003 3.00016C17.3924 3.00016 21.8784 6.87992 22.8189 12.0002C22.5067 13.6998 21.8038 15.2628 20.8068 16.5925ZM11.7229 7.50857C11.8146 7.50299 11.9071 7.50016 12.0003 7.50016C14.4855 7.50016 16.5003 9.51488 16.5003 12.0002C16.5003 12.0933 16.4974 12.1858 16.4919 12.2775L11.7229 7.50857Z"></path>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="blur" class="hide" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path>
-                        </svg>
-                    </button>
+                <h2>Edit or Upload a book</h2>
+                <input name="isbn" type="number" autocomplete="on" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
+                <p class="warning"><b>Note</b> : <span class="note">only Title & Author can be edited.</span></p>
+                <input name="title" type="text" autocomplete="on" id="book-title" class="rounded-box" placeholder="Title" required>
+                <input name="author" type="text" autocomplete="name" id="book-author" class="rounded-box" placeholder="Author" required>
+                <p>Thumbnail (<b>png, jpg,</b> & <b>jpeg</b>) with max size of <b>4MB</b> & <b>2:3</b> for the aspect ratio :</p>
+                <input name="cover" type="file" class="rounded-box files" accept="image/png, image/jpeg">
+                <p>PDF file with max size of <b>64MB</b> :</p>
+                <input name="book" type="file" class="rounded-box files" accept="application/pdf">
+                <p>Choose an action :</p>
+                <select name="book-action" id="book-action" class="rounded-box" onclick="checkOpt()" required>
+                    <option value="edit">Edit</option>
+                    <option value="upload">Upload</option>
+                </select>
+                <div class="check-box">
+                    <input type="checkbox" name="confirm-action" id="confirm-action" onclick="actionConfirm()">
+                    <label for="confirm-action">I agree & have read the <a href="../faq#terms" class="link" target="_blank">Terms and Conditions</a> for that I am fully responsible for this book.</label>
                 </div>
-                <div class="pass-box">
-                    <input type="password" name="new-password" autocomplete="new-password" class="rounded-box user-password-new" placeholder="New Password" required>
-                    <button type="button" class="show-pass-btn" onclick="showPassNew()">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="viewNew" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M17.8827 19.2968C16.1814 20.3755 14.1638 21.0002 12.0003 21.0002C6.60812 21.0002 2.12215 17.1204 1.18164 12.0002C1.61832 9.62282 2.81932 7.5129 4.52047 5.93457L1.39366 2.80777L2.80788 1.39355L22.6069 21.1925L21.1927 22.6068L17.8827 19.2968ZM5.9356 7.3497C4.60673 8.56015 3.6378 10.1672 3.22278 12.0002C4.14022 16.0521 7.7646 19.0002 12.0003 19.0002C13.5997 19.0002 15.112 18.5798 16.4243 17.8384L14.396 15.8101C13.7023 16.2472 12.8808 16.5002 12.0003 16.5002C9.51498 16.5002 7.50026 14.4854 7.50026 12.0002C7.50026 11.1196 7.75317 10.2981 8.19031 9.60442L5.9356 7.3497ZM12.9139 14.328L9.67246 11.0866C9.5613 11.3696 9.50026 11.6777 9.50026 12.0002C9.50026 13.3809 10.6196 14.5002 12.0003 14.5002C12.3227 14.5002 12.6309 14.4391 12.9139 14.328ZM20.8068 16.5925L19.376 15.1617C20.0319 14.2268 20.5154 13.1586 20.7777 12.0002C19.8603 7.94818 16.2359 5.00016 12.0003 5.00016C11.1544 5.00016 10.3329 5.11773 9.55249 5.33818L7.97446 3.76015C9.22127 3.26959 10.5793 3.00016 12.0003 3.00016C17.3924 3.00016 21.8784 6.87992 22.8189 12.0002C22.5067 13.6998 21.8038 15.2628 20.8068 16.5925ZM11.7229 7.50857C11.8146 7.50299 11.9071 7.50016 12.0003 7.50016C14.4855 7.50016 16.5003 9.51488 16.5003 12.0002C16.5003 12.0933 16.4974 12.1858 16.4919 12.2775L11.7229 7.50857Z"></path>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="blurNew" class="hide" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <button type="submit" name="change_pass" class="rounded-box primary-btn">Change Password</button>
-                <?php if (isset($_POST["change_pass"])) {
-                    echo $changePassMsg;
+                <?php if (isset($_POST["action"])) {
+                    echo $actionMsg;
                 } ?>
+                <button name="action" type="submit" id="action-btn" class="rounded-box primary-btn" disabled>Confirm Action</button>
+                <hr>
+            </form>
+            <form method="post">
+                <h2 class="delete-book">Delete book</h2>
+                <input name="delISBN" type="number" autocomplete="on" id="book-isbn" class="rounded-box" placeholder="ISBN" required>
+                <div class="check-box">
+                    <input type="checkbox" name="delete-confirm" id="delete-confirm" onclick="deleteConfirm()">
+                    <label for="delete-confirm">Confirm to delete this book.</label>
+                </div>
+                <?php if (isset($_POST["delete"])) {
+                    echo $delMsg;
+                } ?>
+                <button name="delete" type="submit" id="delete-btn" class="rounded-box primary-btn" disabled>Delete Book</button>
             </form>
         </main>
         <footer>

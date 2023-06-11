@@ -1,116 +1,100 @@
 :root {
     --spacing: 16px;
 }
-
 @media only screen and (max-width: 600px) {
     header {
         padding: var(--spacing) 24px;
     }
-
-    nav ul {
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 24px;
-        position: fixed;
-        top: 80px;
-        right: -100%;
-        min-width: 50%;
-        min-height: 100vh;
-        padding: 16px 0;
-        transition: 400ms ease-in;
-        background-color: rgba(0, 0, 0, 0.54);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-    }
-
-    nav li {
-        padding: 0 24px;
-        min-width: 100%;
-        text-align: center;
-    }
-
-    nav a {
-        min-width: 100%;
-    }
-
     #nav-icon {
         display: block;
     }
-
-    #close-icon {
-        display: none;
-    }
-
-    .show-menu {
+    nav ul {
+        min-height: calc(100vh - 80px);
+        min-height: calc(100dvh - 80px);
+        min-width: 50%;
+        position: fixed;
+        top: 80px;
         right: 0;
-        transition: 350ms ease;
+        opacity: 0;
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+        border-left: 1px solid var(--light-grey);
+        border-top: 1px solid var(--light-grey);
+        background-color: var(--trans);
+        backdrop-filter: blur(8px) saturate(200%);
+        -webkit-backdrop-filter: blur(8px) saturate(200%);
+        padding-top: 16px;
     }
-
+    nav ul.anim {
+        opacity: 1;
+        transition: all 250ms ease-out;
+    }
+    nav li,
+    nav a,
+    nav button,
+    .primary-btn {
+        min-width: 100%;
+    }
+    nav a[href="signout"],
+    nav a[href="signin"],
+    nav a[href="../signout"],
+    nav a[href="../signin"] {
+        min-width: 80%;
+    }
+    nav button {
+        display: flex;
+        justify-content: center;
+    }
     .app-container {
         padding: var(--spacing) 24px;
     }
+    nav ul {
+        text-align: center;
+    }
 }
-
 @media only screen and (min-width: 600px) {
     nav ul {
         gap: 40px;
     }
-
     header {
         padding: var(--spacing) 32px;
     }
-
     .app-container {
         padding: var(--spacing) 32px;
     }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
 }
-
 @media only screen and (min-width: 768px) {
     header {
         padding: var(--spacing) 64px;
     }
-
     .app-container {
         padding: var(--spacing) 64px;
     }
-
     h1 {
         font-size: 32px;
     }
 }
-
 @media only screen and (min-width: 992px) {
     header {
         padding: var(--spacing) 128px;
     }
-
     .app-container {
         padding: var(--spacing) 128px;
     }
-
     h1 {
-        font-size: 40px;
+        font-size: 36px;
     }
 }
-
 @media only screen and (min-width: 1200px) {
     header {
         padding: var(--spacing) 160px;
     }
-
     .app-container {
         padding: var(--spacing) 160px;
     }
-
     h1 {
-        font-size: 48px;
+        font-size: 40px;
     }
 }
