@@ -1,25 +1,16 @@
 <?php
-require '../config/functions.php';
+require "../config/functions.php";
 cookieCheck();
 if (!isset($_SESSION["signInUser"])) {
     header("Location: ../signin");
     exit();
 }
-if (isset($_POST["change_photo"])) {
-    $changePhotoMsg = changePhoto($_POST);
-}
-if (isset($_POST["del_photo"])) {
-    $delPhotoMsg = delPhoto($_POST);
-}
-if (isset($_POST["change_name"])) {
-    $changeNameMsg = changeName($_POST);
-}
-if (isset($_POST["change_email"])) {
-    $changeEmailMsg = changeEmail($_POST);
-}
-if (isset($_POST["change_pass"])) {
-    $changePassMsg = changePass($_POST);
-}
+$nameID = $_SESSION["idUser"];
+$booksResult = mysqli_query($db, "SELECT * FROM books ORDER BY title");
+$nameResult = mysqli_query($db, "SELECT CONCAT (first_name, ' ' ,last_name) AS fullname FROM users WHERE id = '$nameID'");
+$photoResult = mysqli_query($db, "SELECT picture FROM users WHERE id = '$nameID'");
+$usersName = mysqli_fetch_assoc($nameResult);
+$usersPhoto = mysqli_fetch_assoc($photoResult);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,10 +19,10 @@ if (isset($_POST["change_pass"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aksara Diskret">
-    <title>Settings | Aksara Diskret</title>
+    <title>Books Collection | Aksara Diskret</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/collections.css">
     <link rel="stylesheet" id="theme-switch">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,72 +77,49 @@ if (isset($_POST["change_pass"])) {
     </header>
     <div class="app-container">
         <main>
-            <a class="back-icon" href="../collections/"><svg xmlns="http://www.w3.org/2000/svg" id="back-icon" viewBox="0 0 24 24" width="32" height="32">
-                    <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
-                </svg></a>
-            <h1>Settings</h1>
-            <form method="post" enctype="multipart/form-data">
-                <h2>Change your profile picture</h2>
-                <p>Image (<b>png, jpg,</b> & <b>jpeg</b>) with max size of <b>4MB</b> :</p>
-                <input name="photo" type="file" class="rounded-box files" accept="image/png, image/jpeg" id="photo">
-                <?php if (isset($_POST["change_photo"])) {
-                    echo $changePhotoMsg;
-                }
-                if (isset($_POST["del_photo"])) {
-                    echo $delPhotoMsg;
-                } ?>
-                <button type="submit" name="change_photo" class="rounded-box primary-btn" onclick="req()">Change Photo</button>
-                <button type="submit" name="del_photo" class="rounded-box primary-btn" onclick="hide()">Remove Photo</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your name</h2>
-                <input type="text" name="first-name" autocomplete="given-name" id="first-name" class="rounded-box" placeholder="First Name" required>
-                <input type="text" name="last-name" autocomplete="family-name" id="last-name" class="rounded-box" placeholder="Last Name" required>
-                <?php if (isset($_POST["change_name"])) {
-                    echo $changeNameMsg;
-                } ?>
-                <button type="submit" name="change_name" class="rounded-box primary-btn">Change Name</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your email</h2>
-                <input type="email" name="new_email" id="new-email" autocomplete="email" class="rounded-box" placeholder="New Email Address" required>
-                <?php if (isset($_POST["change_email"])) {
-                    echo $changeEmailMsg;
-                } ?>
-                <button type="submit" name="change_email" class="rounded-box primary-btn">Change Email</button>
-                <hr>
-            </form>
-            <form method="post">
-                <h2>Change your password</h2>
-                <div class="pass-box">
-                    <input type="password" name="old-password" autocomplete="current-password" class="rounded-box user-password" placeholder="Old Password" required>
-                    <button type="button" class="show-pass-btn" onclick="showPass()">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="view" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M17.8827 19.2968C16.1814 20.3755 14.1638 21.0002 12.0003 21.0002C6.60812 21.0002 2.12215 17.1204 1.18164 12.0002C1.61832 9.62282 2.81932 7.5129 4.52047 5.93457L1.39366 2.80777L2.80788 1.39355L22.6069 21.1925L21.1927 22.6068L17.8827 19.2968ZM5.9356 7.3497C4.60673 8.56015 3.6378 10.1672 3.22278 12.0002C4.14022 16.0521 7.7646 19.0002 12.0003 19.0002C13.5997 19.0002 15.112 18.5798 16.4243 17.8384L14.396 15.8101C13.7023 16.2472 12.8808 16.5002 12.0003 16.5002C9.51498 16.5002 7.50026 14.4854 7.50026 12.0002C7.50026 11.1196 7.75317 10.2981 8.19031 9.60442L5.9356 7.3497ZM12.9139 14.328L9.67246 11.0866C9.5613 11.3696 9.50026 11.6777 9.50026 12.0002C9.50026 13.3809 10.6196 14.5002 12.0003 14.5002C12.3227 14.5002 12.6309 14.4391 12.9139 14.328ZM20.8068 16.5925L19.376 15.1617C20.0319 14.2268 20.5154 13.1586 20.7777 12.0002C19.8603 7.94818 16.2359 5.00016 12.0003 5.00016C11.1544 5.00016 10.3329 5.11773 9.55249 5.33818L7.97446 3.76015C9.22127 3.26959 10.5793 3.00016 12.0003 3.00016C17.3924 3.00016 21.8784 6.87992 22.8189 12.0002C22.5067 13.6998 21.8038 15.2628 20.8068 16.5925ZM11.7229 7.50857C11.8146 7.50299 11.9071 7.50016 12.0003 7.50016C14.4855 7.50016 16.5003 9.51488 16.5003 12.0002C16.5003 12.0933 16.4974 12.1858 16.4919 12.2775L11.7229 7.50857Z"></path>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="blur" class="hide" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path>
-                        </svg>
-                    </button>
+            <div class="account">
+                <div class="account-menu">
+                    <div class="signin-user">
+                        <img class="profile-img" src="<?= "../assets/images/" . $usersPhoto["picture"] ?>" alt="User profile photo">
+                        <div class="user-menu">
+                            <span id="user"><?= $usersName["fullname"] ?></span>
+                            <a class="link" href="../settings">Settings</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="pass-box">
-                    <input type="password" name="new-password" autocomplete="new-password" class="rounded-box user-password-new" placeholder="New Password" required>
-                    <button type="button" class="show-pass-btn" onclick="showPassNew()">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="viewNew" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M17.8827 19.2968C16.1814 20.3755 14.1638 21.0002 12.0003 21.0002C6.60812 21.0002 2.12215 17.1204 1.18164 12.0002C1.61832 9.62282 2.81932 7.5129 4.52047 5.93457L1.39366 2.80777L2.80788 1.39355L22.6069 21.1925L21.1927 22.6068L17.8827 19.2968ZM5.9356 7.3497C4.60673 8.56015 3.6378 10.1672 3.22278 12.0002C4.14022 16.0521 7.7646 19.0002 12.0003 19.0002C13.5997 19.0002 15.112 18.5798 16.4243 17.8384L14.396 15.8101C13.7023 16.2472 12.8808 16.5002 12.0003 16.5002C9.51498 16.5002 7.50026 14.4854 7.50026 12.0002C7.50026 11.1196 7.75317 10.2981 8.19031 9.60442L5.9356 7.3497ZM12.9139 14.328L9.67246 11.0866C9.5613 11.3696 9.50026 11.6777 9.50026 12.0002C9.50026 13.3809 10.6196 14.5002 12.0003 14.5002C12.3227 14.5002 12.6309 14.4391 12.9139 14.328ZM20.8068 16.5925L19.376 15.1617C20.0319 14.2268 20.5154 13.1586 20.7777 12.0002C19.8603 7.94818 16.2359 5.00016 12.0003 5.00016C11.1544 5.00016 10.3329 5.11773 9.55249 5.33818L7.97446 3.76015C9.22127 3.26959 10.5793 3.00016 12.0003 3.00016C17.3924 3.00016 21.8784 6.87992 22.8189 12.0002C22.5067 13.6998 21.8038 15.2628 20.8068 16.5925ZM11.7229 7.50857C11.8146 7.50299 11.9071 7.50016 12.0003 7.50016C14.4855 7.50016 16.5003 9.51488 16.5003 12.0002C16.5003 12.0933 16.4974 12.1858 16.4919 12.2775L11.7229 7.50857Z"></path>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="blurNew" class="hide" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <button type="submit" name="change_pass" class="rounded-box primary-btn">Change Password</button>
-                <?php if (isset($_POST["change_pass"])) {
-                    echo $changePassMsg;
-                } ?>
-            </form>
+                <a href="../signout" class="rounded-box status-btn">Sign Out</a>
+            </div>
+            <hr>
+            <h1>Books Collection</h1>
+            <div class="books-content">
+                <?php while ($books = mysqli_fetch_assoc($booksResult)) : ?>
+                    <a href="<?= "../assets/books/" . $books["book"] ?>" class="rounded-box books-item" title="<?= ucwords($books["title"] . ' - author by ' . $books["author"]) ?>" download>
+                        <div class="book">
+                            <img src="<?= "../assets/images/" . $books["cover"] ?>" alt="Book Cover">
+                            <div class="books-info">
+                                <h2><?= $books["title"] ?></h2>
+                                <p class="writter"><?= $books["author"] ?></p>
+                                <p class="isbn"><span>ISBN</span><br><?= $books["isbn"] ?></p>
+                            </div>
+                        </div>
+                        <div class="uploader">
+                            <?php
+                            $photoID = mysqli_query($db, "SELECT picture FROM users WHERE id = '$books[id]'");
+                            $allUsersPhoto = mysqli_fetch_assoc($photoID);
+                            $usersID = mysqli_query($db, "SELECT CONCAT(first_name, ' ' ,last_name) AS fullname FROM users WHERE id = '$books[id]'");
+                            $allUsersName = mysqli_fetch_assoc($usersID);
+                            ?>
+                            <img class="rounded-box profile-img" src="<?= "../assets/images/" . $allUsersPhoto["picture"] ?>" alt="User profile photo">
+                            <div class="user-info">
+                                <p><b class="users"><?= $allUsersName["fullname"] ?></b></p>
+                                <p><svg xmlns="http://www.w3.org/2000/svg" id="upload-icon" viewBox="0 0 24 24" width="12" height="12">
+                                        <path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z"></path>
+                                    </svg><?= timeAgo((int)preg_replace('/-id-([0-9]+).*$/', '', $books["book"])) ?></p>
+                            </div>
+                        </div>
+                    </a>
+                <?php endwhile; ?>
+            </div>
         </main>
         <footer>
             <p>©️ 2023 Aksara Diskret. All rights reserved.</p>
